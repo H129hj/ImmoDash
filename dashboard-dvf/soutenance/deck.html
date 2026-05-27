@@ -1,191 +1,193 @@
 <!doctype html><html lang="fr"><head><meta charset="UTF-8">
 <title>ImmoDash — Soutenance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 @page{ size:338.66mm 190.5mm; margin:0; }
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--ink:#0a0d15;--panel:#161e30;--line:#252d3f;--fg:#ece8df;--muted:#8a93a6;--amber:#f0883e;--blue:#5fb3c4;--green:#57c79a;}
+:root{--bg:#f7f5ef;--bg2:#fffdf8;--ink:#1f2740;--fg:#272b36;--muted:#6f7589;--amber:#d4702a;--amber2:#e0894a;--blue:#2f7d97;--green:#2f9e76;--line:#e7e1d4;}
 body{font-family:"Geist",sans-serif;color:var(--fg);}
-.slide{position:relative;width:338.66mm;height:190.5mm;background:var(--ink);overflow:hidden;page-break-after:always;padding:16mm 18mm;}
+.slide{position:relative;width:338.66mm;height:190.5mm;background:var(--bg);overflow:hidden;padding:17mm 19mm;page-break-after:always;}
 .slide:last-child{page-break-after:auto;}
-.bar{position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--amber);}
-.topbar{position:absolute;left:0;top:0;right:0;height:5px;background:var(--amber);}
-.kick{font-family:"Geist Mono",monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);font-weight:600;}
-h1{font-family:"Fraunces",serif;font-size:30px;color:#fff;margin:4px 0 6px;font-weight:700;}
-.rule{width:62px;height:3px;background:var(--amber);border-radius:3px;margin-bottom:18px;}
-.muted{color:var(--muted);} .amber{color:var(--amber);} .blue{color:var(--blue);} .green{color:var(--green);} .fg{color:var(--fg);}
-ul{list-style:none;margin-top:6px;} li{position:relative;padding-left:26px;margin:11px 0;font-size:17px;line-height:1.5;}
-li::before{content:"▹";position:absolute;left:2px;color:var(--amber);font-weight:700;} li.sub{font-size:15px;color:var(--muted);}
-.foot{position:absolute;left:18mm;bottom:8mm;font-size:10px;color:var(--muted);}
-.pg{position:absolute;right:18mm;bottom:8mm;font-size:10px;color:var(--muted);}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;}
+.topbar{position:absolute;left:0;top:0;right:0;height:6px;background:linear-gradient(90deg,var(--amber),var(--amber2));}
+.kick{font-family:"Geist Mono",monospace;font-size:12.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);font-weight:600;}
+h1{font-family:"Fraunces",serif;font-size:31px;color:var(--ink);margin:5px 0 7px;font-weight:700;}
+.rule{width:60px;height:3px;background:var(--amber);border-radius:3px;margin-bottom:20px;}
+.muted{color:var(--muted);} .amber{color:var(--amber);} .blue{color:var(--blue);} .green{color:var(--green);} .ink{color:var(--ink);}
+b{color:var(--ink);}
+ul{list-style:none;margin-top:6px;} li{position:relative;padding-left:26px;margin:12px 0;font-size:17px;line-height:1.5;}
+li::before{content:"▹";position:absolute;left:2px;color:var(--amber);font-weight:700;} li.sub{font-size:14.5px;color:var(--muted);}
+.foot{position:absolute;left:19mm;bottom:9mm;font-size:10px;color:var(--muted);font-family:"Geist Mono",monospace;}
+.pg{position:absolute;right:19mm;bottom:8mm;font-size:11px;color:var(--muted);font-family:"Geist Mono",monospace;background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:3px 10px;}
+.panel{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 1px 2px rgba(30,30,40,.04),0 10px 24px rgba(30,30,40,.05);}
 .grid2{display:flex;gap:18px;} .grid2>div{flex:1;}
 .flex{display:flex;} .center{align-items:center;justify-content:center;}
-.chip{display:inline-block;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-family:"Geist Mono",monospace;font-size:13px;margin:3px;}
-img.shot{width:100%;border:1px solid var(--line);border-radius:10px;}
-.stat{font-family:"Geist Mono",monospace;font-size:30px;font-weight:700;color:#fff;}
+.chip{display:inline-block;background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-family:"Geist Mono",monospace;font-size:13px;margin:3px;color:var(--ink);}
+img.shot{border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 44px -16px rgba(30,30,40,.4);}
+.stat{font-family:"Geist Mono",monospace;font-size:30px;font-weight:700;color:var(--ink);}
 </style></head><body>
 
 <!-- 1 COVER -->
-<section class="slide"><div class="topbar"></div>
-  <div class="kick" style="margin-top:6px;">🏠 Atelier Yboost · IA &amp; Data</div>
-  <div style="font-family:Fraunces,serif;font-size:74px;font-weight:900;color:#fff;margin-top:46mm;">ImmoDash</div>
-  <div style="font-family:Fraunces,serif;font-size:26px;color:var(--amber);font-weight:700;margin-top:8px;">Lire le marché immobilier français en 10 secondes</div>
+<section class="slide" style="background:linear-gradient(160deg,#fffdf8,#f4efe4);"><div class="topbar"></div>
+  <div class="kick" style="margin-top:6px;">🏠 Atelier Yboost · IA &amp; Data · Ynov</div>
+  <div style="font-family:Fraunces,serif;font-size:78px;font-weight:900;color:var(--ink);margin-top:42mm;letter-spacing:-1px;">Immo<span class="amber">Dash</span></div>
+  <div style="font-family:Fraunces,serif;font-size:27px;color:var(--amber);font-weight:700;margin-top:10px;">Lire le marché immobilier français en 10 secondes</div>
   <div class="muted" style="font-size:16px;margin-top:14px;">Dashboard d'analyse des Demandes de Valeurs Foncières — 2,79 M de ventes · 2023-2025 · toute la France</div>
-  <div class="rule" style="margin-top:22px;"></div>
-  <div style="font-size:22px;font-weight:700;">Hugo Berton</div>
-  <div class="muted" style="font-size:14px;">Bachelor 1 · Ynov · github.com/H129hj/ImmoDash</div>
+  <div class="rule" style="margin-top:24px;width:70px;"></div>
+  <div style="font-size:22px;font-weight:700;color:var(--ink);">Hugo Berton</div>
+  <div class="muted" style="font-size:14px;">Bachelor 1 · github.com/H129hj/ImmoDash</div>
 </section>
 
 <!-- 2 SOMMAIRE -->
-<section class="slide"><div class="bar"></div><div class="kick">Sommaire</div><h1>Au programme</h1><div class="rule"></div>
+<section class="slide"><div class="topbar"></div><div class="kick">Sommaire</div><h1>Au programme</h1><div class="rule"></div>
   <div class="grid2" style="margin-top:14px;">
     <div class="panel"><ul><li>1. Contexte &amp; problématique</li><li>2. Les données DVF</li><li>3. La démarche (pipeline)</li></ul></div>
     <div class="panel"><ul><li>4. Architecture technique</li><li>5. Démo du dashboard</li><li>6. Insights clés</li></ul></div>
     <div class="panel"><ul><li>7. Originalité (thèmes + jeu)</li><li>8. Choix &amp; limites</li><li>9. Conclusion · Questions</li></ul></div>
-  </div><div class="foot">ImmoDash — Marché immobilier DVF</div><div class="pg">2</div>
+  </div><div class="foot">ImmoDash — DVF</div><div class="pg">02</div>
 </section>
 
 <!-- 3 CONTEXTE -->
-<section class="slide"><div class="bar"></div><div class="kick">01 · Contexte</div><h1>Le défi : donner du sens à la donnée brute</h1><div class="rule"></div>
-  <div class="flex" style="gap:22px;">
+<section class="slide"><div class="topbar"></div><div class="kick">01 · Contexte</div><h1>Donner du sens à la donnée brute</h1><div class="rule"></div>
+  <div class="flex" style="gap:24px;">
     <ul style="flex:1.7;">
-      <li>Les DVF recensent <b class="fg">toutes les ventes immobilières</b> en France (open data, DGFiP).</li>
-      <li>Sur 3 ans : <b class="fg">~2,79 millions</b> de transactions → impossible à lire à l'œil nu.</li>
+      <li>Les DVF recensent <b>toutes les ventes immobilières</b> en France (open data, DGFiP).</li>
+      <li>Sur 3 ans : <b>~2,79 millions</b> de transactions → impossible à lire à l'œil nu.</li>
       <li><b class="amber">Problématique : comment rendre ces données compréhensibles en 10 secondes ?</b></li>
       <li>Objectif : transformer la donnée brute en réponses claires — où, à quel prix, quelle évolution.</li>
     </ul>
-    <div class="panel" style="flex:1;text-align:center;">
+    <div class="panel" style="flex:1;text-align:center;border-color:var(--amber);">
       <div class="kick" style="font-size:12px;">En chiffres</div>
-      <div class="stat" style="font-size:40px;margin-top:10px;">2,79 M</div><div class="muted">transactions</div>
-      <div class="stat" style="font-size:24px;color:var(--blue);margin-top:14px;">93 départements</div><div class="muted">toute la France · 36 mois</div>
+      <div class="stat" style="font-size:42px;margin-top:12px;color:var(--amber);">2,79 M</div><div class="muted">transactions</div>
+      <div class="stat" style="font-size:25px;color:var(--blue);margin-top:16px;">93 départements</div><div class="muted">toute la France · 36 mois</div>
     </div>
-  </div><div class="foot">ImmoDash</div><div class="pg">3</div>
+  </div><div class="foot">ImmoDash — DVF</div><div class="pg">03</div>
 </section>
 
 <!-- 4 DONNÉES -->
-<section class="slide"><div class="bar"></div><div class="kick">02 · Données</div><h1>DVF — Demandes de Valeurs Foncières</h1><div class="rule"></div>
+<section class="slide"><div class="topbar"></div><div class="kick">02 · Données</div><h1>DVF — Demandes de Valeurs Foncières</h1><div class="rule"></div>
   <ul>
     <li>Registre public de toutes les mutations immobilières (source : DGFiP / data.gouv.fr).</li>
-    <li>Une ligne = une vente : <span class="chip">valeur_fonciere</span> <span class="chip">surface_reelle</span> <span class="chip">type_bien</span> <span class="chip">commune</span> <span class="chip">code_departement</span> <span class="chip">date_mutation</span></li>
+    <li>Une ligne = une vente :<br><span class="chip">valeur_fonciere</span> <span class="chip">surface_reelle</span> <span class="chip">type_bien</span> <span class="chip">commune</span> <span class="chip">code_departement</span> <span class="chip">date_mutation</span></li>
     <li><b class="amber">Indicateur clé dérivé : prix au m² = valeur_fonciere / surface_reelle.</b></li>
-    <li>Croisé avec la population <b class="fg">INSEE</b> → dynamisme (ventes / 100 000 hab.).</li>
-  </ul><div class="foot">ImmoDash</div><div class="pg">4</div>
+    <li>Croisé avec la population <b>INSEE</b> → dynamisme (ventes / 100 000 hab.).</li>
+  </ul><div class="foot">ImmoDash — DVF</div><div class="pg">04</div>
 </section>
 
 <!-- 5 PIPELINE -->
-<section class="slide"><div class="bar"></div><div class="kick">03 · Démarche</div><h1>Un pipeline, de la donnée brute à la dataviz</h1><div class="rule"></div>
-  <div class="flex" style="gap:8px;align-items:stretch;margin-top:30px;">
-    <div class="panel" style="flex:1;text-align:center;border-color:var(--blue);"><b>Collecte</b><div class="muted" style="font-size:12px;">API DVF + INSEE</div></div>
-    <div class="center flex amber" style="font-size:24px;">→</div>
-    <div class="panel" style="flex:1;text-align:center;"><b>SQLite</b><div class="muted" style="font-size:12px;">stockage</div></div>
-    <div class="center flex amber" style="font-size:24px;">→</div>
-    <div class="panel" style="flex:1;text-align:center;"><b>Nettoyage</b><div class="muted" style="font-size:12px;">Pandas</div></div>
-    <div class="center flex amber" style="font-size:24px;">→</div>
-    <div class="panel" style="flex:1;text-align:center;"><b>Fusion</b><div class="muted" style="font-size:12px;">DVF × INSEE</div></div>
-    <div class="center flex amber" style="font-size:24px;">→</div>
-    <div class="panel" style="flex:1;text-align:center;"><b>Agrégats</b><div class="muted" style="font-size:12px;">médianes</div></div>
-    <div class="center flex amber" style="font-size:24px;">→</div>
-    <div class="panel" style="flex:1;text-align:center;border-color:var(--blue);"><b>Dashboard</b><div class="muted" style="font-size:12px;">React · d3</div></div>
+<section class="slide"><div class="topbar"></div><div class="kick">03 · Démarche</div><h1>Un pipeline, de la donnée brute à la dataviz</h1><div class="rule"></div>
+  <div class="flex" style="gap:7px;align-items:stretch;margin-top:32px;">
+    <div class="panel" style="flex:1;text-align:center;border-color:var(--blue);"><b class="ink">Collecte</b><div class="muted" style="font-size:12px;">API DVF + INSEE</div></div>
+    <div class="center flex amber" style="font-size:24px;font-weight:700;">→</div>
+    <div class="panel" style="flex:1;text-align:center;"><b class="ink">SQLite</b><div class="muted" style="font-size:12px;">stockage</div></div>
+    <div class="center flex amber" style="font-size:24px;font-weight:700;">→</div>
+    <div class="panel" style="flex:1;text-align:center;"><b class="ink">Nettoyage</b><div class="muted" style="font-size:12px;">Pandas</div></div>
+    <div class="center flex amber" style="font-size:24px;font-weight:700;">→</div>
+    <div class="panel" style="flex:1;text-align:center;"><b class="ink">Fusion</b><div class="muted" style="font-size:12px;">DVF × INSEE</div></div>
+    <div class="center flex amber" style="font-size:24px;font-weight:700;">→</div>
+    <div class="panel" style="flex:1;text-align:center;"><b class="ink">Agrégats</b><div class="muted" style="font-size:12px;">médianes</div></div>
+    <div class="center flex amber" style="font-size:24px;font-weight:700;">→</div>
+    <div class="panel" style="flex:1;text-align:center;border-color:var(--blue);"><b class="ink">Dashboard</b><div class="muted" style="font-size:12px;">React · d3</div></div>
   </div>
-  <p class="muted" style="margin-top:30px;font-size:15px;">Traitement Python (Pandas/SQLite) ; le dashboard restitue les agrégats officiels de l'API DVF sur 3 ans.</p>
-  <div class="foot">ImmoDash</div><div class="pg">5</div>
+  <p class="muted" style="margin-top:32px;font-size:15px;">Traitement Python (Pandas/SQLite) ; le dashboard restitue les agrégats officiels de l'API DVF sur 3 ans.</p>
+  <div class="foot">ImmoDash — DVF</div><div class="pg">05</div>
 </section>
 
 <!-- 6 TRAITEMENT -->
-<section class="slide"><div class="bar"></div><div class="kick">04 · Traitement</div><h1>Nettoyage &amp; feature engineering (Pandas)</h1><div class="rule"></div>
+<section class="slide"><div class="topbar"></div><div class="kick">04 · Traitement</div><h1>Nettoyage &amp; feature engineering (Pandas)</h1><div class="rule"></div>
   <div class="grid2" style="margin-top:8px;">
     <div class="panel" style="border-color:var(--amber);"><div class="kick" style="font-size:13px;">Nettoyage</div>
       <ul><li>NaN, doublons, aberrations supprimés</li><li>Prix au m² borné : 500–15 000 €</li><li>Typage des dates</li><li class="sub">« Garbage in, garbage out »</li></ul></div>
     <div class="panel" style="border-color:var(--blue);"><div class="kick" style="font-size:13px;color:var(--blue);">Variables créées</div>
-      <ul><li><b class="fg">prix_m2</b> — indicateur central</li><li><b class="fg">mois</b> — évolution</li><li><b class="fg">segment</b> : Éco / Standard / Luxe</li><li class="sub">Médiane ≠ moyenne : robuste aux extrêmes</li></ul></div>
-  </div><div class="foot">ImmoDash</div><div class="pg">6</div>
+      <ul><li><b>prix_m2</b> — indicateur central</li><li><b>mois</b> — évolution</li><li><b>segment</b> : Éco / Standard / Luxe</li><li class="sub">Médiane ≠ moyenne : robuste aux extrêmes</li></ul></div>
+  </div><div class="foot">ImmoDash — DVF</div><div class="pg">06</div>
 </section>
 
 <!-- 7 ARCHI -->
-<section class="slide"><div class="bar"></div><div class="kick">05 · Technique</div><h1>Architecture : développé de A à Z</h1><div class="rule"></div>
+<section class="slide"><div class="topbar"></div><div class="kick">05 · Technique</div><h1>Architecture : développé de A à Z</h1><div class="rule"></div>
   <div class="grid2" style="margin-top:8px;">
     <div class="panel" style="border-color:var(--amber);"><div style="font-size:17px;font-weight:700;color:var(--amber);margin-bottom:8px;">Back / Data — Python</div>
       <ul><li>Pandas (traitement), SQLite (stockage)</li><li>Collecte API DVF + INSEE</li><li>Agrégation → un JSON unique</li></ul></div>
     <div class="panel" style="border-color:var(--blue);"><div style="font-size:17px;font-weight:700;color:var(--blue);margin-bottom:8px;">Front — React / TypeScript</div>
       <ul><li>Tailwind, Recharts, carte d3-geo</li><li>6 pages, filtres en direct, animations</li><li>3 thèmes (sombre / clair / Mario)</li></ul></div>
-  </div><div class="foot">ImmoDash</div><div class="pg">7</div>
+  </div><div class="foot">ImmoDash — DVF</div><div class="pg">07</div>
 </section>
 
 <!-- 8 DEMO OVERVIEW -->
-<section class="slide" style="padding:14mm 16mm;"><div class="bar"></div><div class="kick">06 · Démo</div><h1>Vue d'ensemble du dashboard</h1>
-  <img class="shot" src="./img/imd-overview.png" style="margin-top:10px;max-height:135mm;width:auto;display:block;margin-left:auto;margin-right:auto;"><div class="pg">8</div>
+<section class="slide center flex" style="flex-direction:column;padding:13mm 16mm;"><div class="topbar"></div>
+  <div style="align-self:flex-start;"><div class="kick">06 · Démo</div><h1 style="margin-bottom:8px;">Vue d'ensemble du dashboard</h1></div>
+  <img class="shot" src="./img/imd-overview.png" style="max-height:135mm;max-width:100%;"><div class="pg">08</div>
 </section>
 
 <!-- 9 DEMO CARTE -->
-<section class="slide" style="padding:14mm 16mm;"><div class="bar"></div><div class="kick">06 · Démo</div><h1>Carte interactive des départements</h1>
-  <img class="shot" src="./img/imd-geo.png" style="margin-top:10px;max-height:135mm;width:auto;display:block;margin-left:auto;margin-right:auto;"><div class="pg">9</div>
+<section class="slide center flex" style="flex-direction:column;padding:13mm 16mm;"><div class="topbar"></div>
+  <div style="align-self:flex-start;"><div class="kick">06 · Démo</div><h1 style="margin-bottom:8px;">Carte interactive des départements</h1></div>
+  <img class="shot" src="./img/imd-geo.png" style="max-height:135mm;max-width:100%;"><div class="pg">09</div>
 </section>
 
 <!-- 10 INSIGHTS NAT -->
-<section class="slide"><div class="bar"></div><div class="kick">07 · Insights</div><h1>Lecture nationale du marché</h1><div class="rule"></div>
+<section class="slide"><div class="topbar"></div><div class="kick">07 · Insights</div><h1>Lecture nationale du marché</h1><div class="rule"></div>
   <div class="flex" style="gap:16px;">
-    <div class="panel" style="flex:1;border-color:var(--amber);"><div class="stat">2 576 €/m²</div><div class="muted">prix médian national</div></div>
-    <div class="panel" style="flex:1;border-color:var(--blue);"><div class="stat">Paris</div><div class="muted">le + cher (~10 250 €/m²)</div></div>
-    <div class="panel" style="flex:1;border-color:var(--green);"><div class="stat">− 1,9 %</div><div class="muted">évolution sur 3 ans</div></div>
+    <div class="panel" style="flex:1;border-color:var(--amber);"><div class="stat" style="color:var(--amber);">2 576 €/m²</div><div class="muted">prix médian national</div></div>
+    <div class="panel" style="flex:1;border-color:var(--blue);"><div class="stat" style="color:var(--blue);">Paris</div><div class="muted">le + cher (~10 250 €/m²)</div></div>
+    <div class="panel" style="flex:1;border-color:var(--green);"><div class="stat" style="color:var(--green);">− 1,9 %</div><div class="muted">évolution sur 3 ans</div></div>
   </div>
-  <ul style="margin-top:18px;">
-    <li>Une <b class="fg">France à deux vitesses</b> : Paris / Côte d'Azur vs reste du territoire (rapport ~7×).</li>
-    <li>Le marché s'est <b class="fg">refroidi</b> récemment (hausse des taux) : −1,9 % sur 36 mois.</li>
-    <li><b class="fg">72 %</b> des biens &lt; 4 000 €/m² (« Éco ») ; le luxe (&gt; 8 000) ne pèse que ~5 %.</li>
-  </ul><div class="foot">ImmoDash</div><div class="pg">10</div>
+  <ul style="margin-top:20px;">
+    <li>Une <b>France à deux vitesses</b> : Paris / Côte d'Azur vs reste du territoire (rapport ~7×).</li>
+    <li>Le marché s'est <b>refroidi</b> récemment (hausse des taux) : −1,9 % sur 36 mois.</li>
+    <li><b>72 %</b> des biens &lt; 4 000 €/m² (« Éco ») ; le luxe (&gt; 8 000) ne pèse que ~5 %.</li>
+  </ul><div class="foot">ImmoDash — DVF</div><div class="pg">10</div>
 </section>
 
 <!-- 11 INSIGHTS TYPO -->
-<section class="slide"><div class="bar"></div><div class="kick">07 · Insights</div><h1>Typologie &amp; segments</h1><div class="rule"></div>
-  <div class="flex" style="gap:22px;">
-    <ul style="flex:1.3;">
-      <li>Au m², l'<b class="fg">appartement</b> (~3 340 €) se vend plus cher que la <b class="fg">maison</b> (~2 120 €) — densité urbaine.</li>
-      <li>Segmentation Éco / Standard / Luxe : lecture immédiate de la structure du marché.</li>
+<section class="slide"><div class="topbar"></div><div class="kick">07 · Insights</div><h1>Typologie &amp; segments</h1><div class="rule"></div>
+  <div class="flex" style="gap:24px;align-items:center;">
+    <ul style="flex:1.2;">
+      <li>Au m², l'<b>appartement</b> (~3 340 €) se vend plus cher que la <b>maison</b> (~2 120 €) — densité urbaine.</li>
+      <li>Segmentation Éco / Standard / Luxe : structure du marché en un coup d'œil.</li>
       <li>Croisement INSEE : volume rapporté à la population = dynamisme par territoire.</li>
     </ul>
-    <img class="shot" src="./img/imd-light.png" style="flex:1;max-width:48%;height:fit-content;align-self:center;">
-  </div><div class="foot">ImmoDash</div><div class="pg">11</div>
+    <img class="shot" src="./img/imd-light.png" style="flex:1;max-width:50%;">
+  </div><div class="foot">ImmoDash — DVF</div><div class="pg">11</div>
 </section>
 
 <!-- 12 ORIGINALITE -->
-<section class="slide"><div class="bar"></div><div class="kick">08 · Originalité</div><h1>Aller au-delà de ce qui est demandé</h1><div class="rule"></div>
-  <div class="flex" style="gap:22px;">
+<section class="slide"><div class="topbar"></div><div class="kick">08 · Originalité</div><h1>Aller au-delà de ce qui est demandé</h1><div class="rule"></div>
+  <div class="flex" style="gap:24px;align-items:center;">
     <ul style="flex:1;">
-      <li><b class="fg">3 thèmes</b> : sombre, clair (rendu pro) et un thème <b class="fg">Mario</b> (sons, animations).</li>
-      <li>Un <b class="fg">mini-jeu intégré</b> : on court sur la courbe des prix — la donnée devient le terrain.</li>
-      <li>Une <b class="fg">landing page portfolio</b> externe avec graphiques live.</li>
+      <li><b>3 thèmes</b> : sombre, clair (rendu pro) et un thème <b>Mario</b> (sons, animations).</li>
+      <li>Un <b>mini-jeu intégré</b> : on court sur la courbe des prix — la donnée devient le terrain.</li>
+      <li>Une <b>landing page portfolio</b> externe avec graphiques live.</li>
     </ul>
-    <img class="shot" src="./img/imd-game.png" style="flex:1.1;max-width:52%;height:fit-content;align-self:center;">
-  </div><div class="foot">ImmoDash</div><div class="pg">12</div>
+    <img class="shot" src="./img/imd-game.png" style="flex:1.1;max-width:54%;">
+  </div><div class="foot">ImmoDash — DVF</div><div class="pg">12</div>
 </section>
 
 <!-- 13 LIMITES -->
-<section class="slide"><div class="bar"></div><div class="kick">09 · Recul</div><h1>Choix d'analyse &amp; limites</h1><div class="rule"></div>
+<section class="slide"><div class="topbar"></div><div class="kick">09 · Recul</div><h1>Choix d'analyse &amp; limites</h1><div class="rule"></div>
   <div class="grid2" style="margin-top:8px;">
     <div class="panel" style="border-color:var(--amber);"><div class="kick" style="font-size:13px;">Mes choix</div>
       <ul><li>Médiane plutôt que moyenne</li><li>Prix au m² borné (anti-aberrations)</li><li>Agrégats API (pas 10 Go côté client)</li><li>Fenêtre 3 ans = tendance lisible</li></ul></div>
     <div class="panel" style="border-color:var(--blue);"><div class="kick" style="font-size:13px;color:var(--blue);">Limites &amp; pistes</div>
       <ul><li>Instantané géo = niveau de prix médian</li><li>Données DVF parfois imparfaites</li><li>Aller plus loin : prévision, +sources INSEE</li></ul></div>
-  </div><div class="foot">ImmoDash</div><div class="pg">13</div>
+  </div><div class="foot">ImmoDash — DVF</div><div class="pg">13</div>
 </section>
 
 <!-- 14 CONCLUSION -->
-<section class="slide"><div class="bar"></div><div class="kick">Conclusion</div><h1>Ce que je retiens</h1><div class="rule"></div>
+<section class="slide"><div class="topbar"></div><div class="kick">Conclusion</div><h1>Ce que je retiens</h1><div class="rule"></div>
   <ul>
-    <li>Une <b class="fg">chaîne data complète</b> : de la donnée brute (API/Pandas/SQLite) au dashboard React interactif.</li>
-    <li>Un livrable qui répond à l'énoncé : <b class="fg">comprendre le marché en 10 secondes</b>.</li>
+    <li>Une <b>chaîne data complète</b> : de la donnée brute (API/Pandas/SQLite) au dashboard React interactif.</li>
+    <li>Un livrable qui répond à l'énoncé : <b>comprendre le marché en 10 secondes</b>.</li>
     <li>Compétences : Pandas, fusion de sources, agrégation, dataviz, storytelling, design.</li>
     <li><b class="amber">Un projet qui sort du lot par son originalité (thèmes, jeu, portfolio).</b></li>
-  </ul><div class="foot">ImmoDash</div><div class="pg">14</div>
+  </ul><div class="foot">ImmoDash — DVF</div><div class="pg">14</div>
 </section>
 
 <!-- 15 MERCI -->
-<section class="slide center flex" style="flex-direction:column;text-align:center;"><div class="topbar"></div>
-  <div style="font-family:Fraunces,serif;font-size:48px;font-weight:700;color:#fff;">Merci de votre attention</div>
+<section class="slide center flex" style="flex-direction:column;text-align:center;background:linear-gradient(160deg,#fffdf8,#f4efe4);"><div class="topbar"></div>
+  <div style="font-family:Fraunces,serif;font-size:50px;font-weight:700;color:var(--ink);">Merci de votre attention</div>
   <div style="font-family:Fraunces,serif;font-size:26px;color:var(--amber);font-weight:700;margin-top:10px;">Place à vos questions</div>
-  <div class="muted" style="margin-top:24px;font-size:14px;">Hugo Berton — ImmoDash · github.com/H129hj/ImmoDash</div>
+  <div class="muted" style="margin-top:26px;font-size:14px;">Hugo Berton — ImmoDash · github.com/H129hj/ImmoDash</div>
 </section>
 
 </body></html>
