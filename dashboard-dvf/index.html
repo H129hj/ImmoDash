@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard immobilier — DVF France 2025</title>
+  <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;🏠&lt;/text&gt;&lt;/svg&gt;">
+  <link rel="stylesheet" href="static/vendor/leaflet.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-left">
+      <span class="logo">🏠 DVF<span class="logo-accent">·</span>Insight</span>
+      <div>
+        <h1>Marché immobilier français — <span>DVF 2025</span></h1>
+        <p class="subtitle">Analyse des Demandes de Valeurs Foncières · 1<sup>er</sup> semestre 2025</p>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div><span class="meta-label">Période</span><span id="meta-periode">—</span></div>
+      <div><span class="meta-label">Transactions analysées</span><span id="meta-volume">—</span></div>
+      <div><span class="meta-label">Généré le</span><span id="meta-date">—</span></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="kpi-grid" id="kpis"></section>
+
+    <section class="panel insights-panel">
+      <h2>📌 Ce que disent les données</h2>
+      <ul id="insights"></ul>
+    </section>
+
+    <!-- Évolution + Carte choroplèthe -->
+    <section class="grid-2">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Évolution du prix médian au m²</h2>
+          <div class="toggle" id="toggle-evolution">
+            <button data-serie="prix_m2" class="active">Tous biens</button>
+            <button data-serie="prix_appart">Appartements</button>
+            <button data-serie="prix_maison">Maisons</button>
+          </div>
+        </div>
+        <p class="panel-hint">Volume de ventes (barres) et prix médian €/m² (courbe), mois par mois.</p>
+        <div class="chart-box"><canvas id="chart-evolution"></canvas></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Carte des prix par département</h2></div>
+        <p class="panel-hint">Prix moyen au m² par département (métropole). Survolez un département.</p>
+        <div id="map"></div>
+        <div class="legend" id="map-legend"></div>
+      </div>
+    </section>
+
+    <!-- Classement départements + Segments -->
+    <section class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h2>Top 12 des départements les plus chers</h2></div>
+        <p class="panel-hint">Prix moyen au m² (départements ≥ 100 transactions).</p>
+        <div class="chart-box"><canvas id="chart-dep"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Segmentation du marché</h2></div>
+        <p class="panel-hint">Répartition des biens : Éco (&lt; 4 000) · Standard (4 000–8 000) · Luxe (&gt; 8 000 €/m²).</p>
+        <div class="chart-box"><canvas id="chart-segments"></canvas></div>
+      </div>
+    </section>
+
+    <!-- Type de bien + Top communes -->
+    <section class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h2>Appartement vs Maison</h2></div>
+        <p class="panel-hint">Prix médian au m² par type de bien (national).</p>
+        <div class="chart-box"><canvas id="chart-type"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Top 10 des communes les plus chères</h2></div>
+        <p class="panel-hint">Médiane €/m², communes ≥ 100 transactions.</p>
+        <div class="chart-box"><canvas id="chart-communes"></canvas></div>
+      </div>
+    </section>
+
+    <!-- Focus Bouches-du-Rhône -->
+    <section class="panel focus-panel">
+      <div class="panel-head"><h2>🎯 Focus — Bouches-du-Rhône (13)</h2></div>
+      <p class="panel-hint">Zoom sur notre département de référence, mis en perspective au niveau national.</p>
+      <div class="focus-grid">
+        <div class="focus-kpis" id="focus-kpis"></div>
+        <div class="focus-table">
+          <h4>Communes les plus chères du 13</h4>
+          <table id="focus-communes"><tbody></tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tableau départements -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Classement complet des départements</h2>
+        <input type="search" id="search" placeholder="🔍 Rechercher un département…">
+      </div>
+      <div class="table-wrap">
+        <table id="table">
+          <thead>
+            <tr>
+              <th data-key="nom">Département</th>
+              <th data-key="code" class="num">Code</th>
+              <th data-key="prix_moyen" class="num">€/m² moyen</th>
+              <th data-key="prix_median" class="num">€/m² médian</th>
+              <th data-key="nb" class="num">Transactions</th>
+              <th data-key="population" class="num">Population</th>
+              <th data-key="ventes_100k_hab" class="num">Ventes / 100k hab.</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="table-info" id="table-info"></p>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Pipeline Python (Pandas : nettoyage → feature engineering → agrégation) & front HTML/CSS/JS —
+       Données publiques DVF · data.gouv.fr — <span id="meta-nettoyage"></span></p>
+  </footer>
+
+  <div id="loading" class="loading">Chargement des données…</div>
+
+  <script src="static/vendor/chart.umd.min.js"></script>
+  <script src="static/vendor/leaflet.js"></script>
+  <script src="static/js/dashboard.js"></script>
+</body>
+</html>

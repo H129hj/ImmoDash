@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  /* — thème SOMBRE (défaut) — */
+  --color-ink: #0a0d15;
+  --color-surface: #121826;
+  --color-surface2: #19202f;
+  --color-line: #252d3f;
+  --color-fg: #ece8df;
+  --color-muted: #8a93a6;
+  --color-amber: #f0883e;
+  --color-amber-soft: #f6b87f;
+  --color-teal: #5fb3c4;
+  --color-green: #57c79a;
+  --color-rose: #e76a82;
+  --color-gold: #d9b46a;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --font-pixel: "Press Start 2P", "Geist Mono", monospace;
+}
+
+/* — thème CLAIR — */
+:root[data-theme="light"] {
+  --color-ink: #f6f3ec; --color-surface: #ffffff; --color-surface2: #f1ede4;
+  --color-line: #e4ded1; --color-fg: #1b1e27; --color-muted: #6c7280;
+  --color-amber: #d4702a; --color-amber-soft: #b85c1c; --color-teal: #2f8aa0;
+  --color-green: #2f9e76; --color-rose: #d24b66; --color-gold: #b08a3c;
+}
+
+/* — thème MARIO (Super Mario Bros) — */
+:root[data-theme="mario"] {
+  --color-ink: #5c94fc;          /* ciel */
+  --color-surface: #fffdf3;      /* crème */
+  --color-surface2: #fff2cf;     /* jaune doux */
+  --color-line: #1c1a17;         /* contour noir NES */
+  --color-fg: #1c1a17;
+  --color-muted: #7a6a52;
+  --color-amber: #e52521;        /* rouge Mario */
+  --color-amber-soft: #ff7a4d;
+  --color-teal: #049cd8;         /* bleu */
+  --color-green: #43b047;        /* vert Luigi */
+  --color-rose: #e52521;
+  --color-gold: #fbd000;         /* pièce */
+}
+
+* { border-color: var(--color-line); }
+html { scrollbar-color: var(--color-line) transparent; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1100px 520px at 88% -8%, color-mix(in srgb, var(--color-amber) 16%, transparent), transparent 60%),
+    radial-gradient(900px 600px at -5% 5%, color-mix(in srgb, var(--color-teal) 14%, transparent), transparent 55%),
+    var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .45s ease, color .45s ease;
+}
+:root[data-theme="mario"] body {
+  background: linear-gradient(180deg, #5c94fc 0%, #84aefe 55%, #a9caff 100%) fixed;
+}
+
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+:root[data-theme="light"] body::before { opacity: 0.02; }
+:root[data-theme="mario"] body::before { opacity: 0; }
+
+#root { position: relative; z-index: 2; }
+.tnum { font-variant-numeric: tabular-nums; }
+.pixel { font-family: var(--font-pixel); letter-spacing: 0; }
+
+.card {
+  background: linear-gradient(168deg, var(--color-surface), var(--color-surface2));
+  border: 1px solid var(--color-line);
+  border-radius: 16px;
+  transition: background .4s ease, border-color .4s ease, transform .25s ease, box-shadow .25s ease;
+}
+:root[data-theme="light"] .card { box-shadow: 0 1px 2px rgba(20,20,30,.04), 0 8px 24px rgba(20,20,30,.05); }
+:root[data-theme="mario"] .card {
+  border-width: 2.5px; border-radius: 14px;
+  box-shadow: 5px 5px 0 rgba(28,26,23,.22);
+}
+.card-hover:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(0,0,0,.35); }
+:root[data-theme="mario"] .card-hover:hover { transform: translateY(-3px); box-shadow: 7px 7px 0 rgba(28,26,23,.28); }
+
+/* marque animée selon thème */
+.shimmer-gold {
+  background: linear-gradient(92deg, var(--color-amber), var(--color-gold), var(--color-amber));
+  background-size: 300% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+@keyframes shimmer { 0% { background-position: 0 0; } 100% { background-position: 300% 0; } }
+
+:where(button, a, input, [tabindex]):focus-visible { outline: 2px solid var(--color-amber); outline-offset: 2px; border-radius: 8px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; } }
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 6px; }
+
+.recharts-cartesian-axis-tick text, .recharts-polar-angle-axis-tick text { fill: var(--color-muted); }
+.recharts-default-tooltip {
+  background: var(--color-surface) !important; border: 1px solid var(--color-line) !important;
+  border-radius: 10px !important; color: var(--color-fg) !important;
+}
+
+.skeleton { background: linear-gradient(90deg, var(--color-surface) 25%, var(--color-surface2) 37%, var(--color-surface) 63%); background-size: 400% 100%; animation: shim 1.4s ease infinite; border-radius: 12px; }
+@keyframes shim { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+
+/* nuages, pièces & perso (mode Mario) */
+@keyframes drift { from { transform: translateX(-12vw); } to { transform: translateX(112vw); } }
+@keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes spin-coin { 0%,100% { transform: scaleX(1); } 50% { transform: scaleX(0.15); } }
+@keyframes mario-run { 0% { left: -70px; } 100% { left: 102vw; } }
+@keyframes mario-bob { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-8px) rotate(2deg); } }
+.navlink { transition: color .2s, background .2s; }

@@ -1,0 +1,22 @@
+# Dépendances & builds
+**/node_modules/
+**/dist/
+**/.venv/
+**/__pycache__/
+*.pyc
+
+# Données générées (régénérables via les scripts)
+dashboard-dvf/data/immobilier.db
+dashboard-dvf/data/raw/insee_communes.json
+
+# Artefacts de dev & captures
+.build/
+.playwright-mcp/
+*.zip
+/*.png
+.DS_Store
+.streamlit/credentials.toml
+
+# temporaires racine
+/*.json
+/*.pdf

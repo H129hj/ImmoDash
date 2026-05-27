@@ -1,0 +1,8 @@
+# Pipeline ETL + dashboards.
+#   - pipeline (main.py)  : pandas, requests (collecte INSEE), sqlite3 (stdlib)
+#   - dashboard Streamlit : streamlit, altair  (lancer : streamlit run app_streamlit.py)
+#   - dashboard HTML/JS   : serveur.py (bibliothèque standard) -> alternative
+pandas>=2.0
+requests>=2.31
+streamlit>=1.40
+altair>=5.0

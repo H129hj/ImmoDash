@@ -1,0 +1,1077 @@
+{
+  "meta": {
+    "titre": "Marché immobilier français — DVF 1er semestre 2025",
+    "source": "DVF (data.gouv.fr) + contexte démographique INSEE (fusion par département)",
+    "genere_le": "27/05/2026 01:33",
+    "periode": "2025-01 → 2025-06",
+    "lignes_brutes": 404868,
+    "lignes_propres": 373038,
+    "pct_conserve": 92.1
+  },
+  "kpis": {
+    "prix_m2_median": 2667,
+    "prix_m2_moyen": 3388,
+    "nb_transactions": 373038,
+    "nb_communes": 23752,
+    "nb_departements": 97,
+    "prix_appart_median": 3462,
+    "prix_maison_median": 2226,
+    "part_luxe_pct": 6.5
+  },
+  "evolution_mensuelle": [
+    {
+      "mois": "2025-01",
+      "label": "janv.",
+      "prix_m2": 2624,
+      "volume": 69969,
+      "prix_appart": 3421,
+      "prix_maison": 2196
+    },
+    {
+      "mois": "2025-02",
+      "label": "févr.",
+      "prix_m2": 2617,
+      "volume": 69677,
+      "prix_appart": 3375,
+      "prix_maison": 2200
+    },
+    {
+      "mois": "2025-03",
+      "label": "mars",
+      "prix_m2": 2685,
+      "volume": 87303,
+      "prix_appart": 3537,
+      "prix_maison": 2210
+    },
+    {
+      "mois": "2025-04",
+      "label": "avr.",
+      "prix_m2": 2618,
+      "volume": 74970,
+      "prix_appart": 3340,
+      "prix_maison": 2216
+    },
+    {
+      "mois": "2025-05",
+      "label": "mai",
+      "prix_m2": 2717,
+      "volume": 39371,
+      "prix_appart": 3462,
+      "prix_maison": 2267
+    },
+    {
+      "mois": "2025-06",
+      "label": "juin",
+      "prix_m2": 2947,
+      "volume": 31748,
+      "prix_appart": 3818,
+      "prix_maison": 2384
+    }
+  ],
+  "segments": [
+    {
+      "segment": "Éco",
+      "nb": 272442,
+      "part_pct": 73.0
+    },
+    {
+      "segment": "Standard",
+      "nb": 76452,
+      "part_pct": 20.5
+    },
+    {
+      "segment": "Luxe",
+      "nb": 24144,
+      "part_pct": 6.5
+    }
+  ],
+  "type_bien": [
+    {
+      "type": "Appartement",
+      "prix_m2_median": 3462,
+      "nb": 166409
+    },
+    {
+      "type": "Maison",
+      "prix_m2_median": 2226,
+      "nb": 206629
+    }
+  ],
+  "classement_departements": [
+    {
+      "code": "75",
+      "nom": "Paris",
+      "prix_moyen": 9447,
+      "prix_median": 9457,
+      "nb": 10222,
+      "population": 2103778,
+      "ventes_100k_hab": 486
+    },
+    {
+      "code": "92",
+      "nom": "Hauts-de-Seine",
+      "prix_moyen": 6739,
+      "prix_median": 6520,
+      "nb": 6939,
+      "population": 1654712,
+      "ventes_100k_hab": 419
+    },
+    {
+      "code": "06",
+      "nom": "Alpes-Maritimes",
+      "prix_moyen": 5344,
+      "prix_median": 4923,
+      "nb": 12189,
+      "population": 1128418,
+      "ventes_100k_hab": 1080
+    },
+    {
+      "code": "94",
+      "nom": "Val-de-Marne",
+      "prix_moyen": 5330,
+      "prix_median": 4865,
+      "nb": 5365,
+      "population": 1426929,
+      "ventes_100k_hab": 376
+    },
+    {
+      "code": "74",
+      "nom": "Haute-Savoie",
+      "prix_moyen": 5094,
+      "prix_median": 4570,
+      "nb": 5406,
+      "population": 861158,
+      "ventes_100k_hab": 628
+    },
+    {
+      "code": "2A",
+      "nom": "Corse-du-Sud",
+      "prix_moyen": 4683,
+      "prix_median": 4275,
+      "nb": 1076,
+      "population": 168306,
+      "ventes_100k_hab": 639
+    },
+    {
+      "code": "83",
+      "nom": "Var",
+      "prix_moyen": 4638,
+      "prix_median": 4104,
+      "nb": 11386,
+      "population": 1119307,
+      "ventes_100k_hab": 1017
+    },
+    {
+      "code": "93",
+      "nom": "Seine-Saint-Denis",
+      "prix_moyen": 4372,
+      "prix_median": 3954,
+      "nb": 4921,
+      "population": 1704316,
+      "ventes_100k_hab": 289
+    },
+    {
+      "code": "73",
+      "nom": "Savoie",
+      "prix_moyen": 4341,
+      "prix_median": 3690,
+      "nb": 3790,
+      "population": 448226,
+      "ventes_100k_hab": 846
+    },
+    {
+      "code": "78",
+      "nom": "Yvelines",
+      "prix_moyen": 4339,
+      "prix_median": 3844,
+      "nb": 6474,
+      "population": 1485086,
+      "ventes_100k_hab": 436
+    },
+    {
+      "code": "13",
+      "nom": "Bouches-du-Rhône",
+      "prix_moyen": 4231,
+      "prix_median": 3754,
+      "nb": 11997,
+      "population": 2087658,
+      "ventes_100k_hab": 575
+    },
+    {
+      "code": "69",
+      "nom": "Rhône",
+      "prix_moyen": 3890,
+      "prix_median": 3690,
+      "nb": 9073,
+      "population": 1914667,
+      "ventes_100k_hab": 474
+    },
+    {
+      "code": "64",
+      "nom": "Pyrénées-Atlantiques",
+      "prix_moyen": 3848,
+      "prix_median": 3023,
+      "nb": 4609,
+      "population": 706564,
+      "ventes_100k_hab": 652
+    },
+    {
+      "code": "33",
+      "nom": "Gironde",
+      "prix_moyen": 3734,
+      "prix_median": 3343,
+      "nb": 10172,
+      "population": 1690493,
+      "ventes_100k_hab": 602
+    },
+    {
+      "code": "2B",
+      "nom": "Haute-Corse",
+      "prix_moyen": 3673,
+      "prix_median": 3322,
+      "nb": 1064,
+      "population": 187180,
+      "ventes_100k_hab": 568
+    },
+    {
+      "code": "95",
+      "nom": "Val-d'Oise",
+      "prix_moyen": 3672,
+      "prix_median": 3401,
+      "nb": 4310,
+      "population": 1281653,
+      "ventes_100k_hab": 336
+    },
+    {
+      "code": "34",
+      "nom": "Hérault",
+      "prix_moyen": 3636,
+      "prix_median": 3342,
+      "nb": 8664,
+      "population": 1230289,
+      "ventes_100k_hab": 704
+    },
+    {
+      "code": "40",
+      "nom": "Landes",
+      "prix_moyen": 3537,
+      "prix_median": 2800,
+      "nb": 3376,
+      "population": 433570,
+      "ventes_100k_hab": 779
+    },
+    {
+      "code": "91",
+      "nom": "Essonne",
+      "prix_moyen": 3533,
+      "prix_median": 3187,
+      "nb": 4751,
+      "population": 1338485,
+      "ventes_100k_hab": 355
+    },
+    {
+      "code": "44",
+      "nom": "Loire-Atlantique",
+      "prix_moyen": 3499,
+      "prix_median": 3105,
+      "nb": 8156,
+      "population": 1487570,
+      "ventes_100k_hab": 548
+    },
+    {
+      "code": "17",
+      "nom": "Charente-Maritime",
+      "prix_moyen": 3448,
+      "prix_median": 2990,
+      "nb": 4416,
+      "population": 672279,
+      "ventes_100k_hab": 657
+    },
+    {
+      "code": "84",
+      "nom": "Vaucluse",
+      "prix_moyen": 3393,
+      "prix_median": 2857,
+      "nb": 3669,
+      "population": 572056,
+      "ventes_100k_hab": 641
+    },
+    {
+      "code": "05",
+      "nom": "Hautes-Alpes",
+      "prix_moyen": 3388,
+      "prix_median": 2996,
+      "nb": 1620,
+      "population": 143467,
+      "ventes_100k_hab": 1129
+    },
+    {
+      "code": "77",
+      "nom": "Seine-et-Marne",
+      "prix_moyen": 3335,
+      "prix_median": 3075,
+      "nb": 6945,
+      "population": 1468108,
+      "ventes_100k_hab": 473
+    },
+    {
+      "code": "35",
+      "nom": "Ille-et-Vilaine",
+      "prix_moyen": 3282,
+      "prix_median": 2828,
+      "nb": 5890,
+      "population": 1120666,
+      "ventes_100k_hab": 526
+    },
+    {
+      "code": "14",
+      "nom": "Calvados",
+      "prix_moyen": 3240,
+      "prix_median": 2674,
+      "nb": 5380,
+      "population": 709441,
+      "ventes_100k_hab": 758
+    },
+    {
+      "code": "56",
+      "nom": "Morbihan",
+      "prix_moyen": 3197,
+      "prix_median": 2740,
+      "nb": 6052,
+      "population": 783390,
+      "ventes_100k_hab": 773
+    },
+    {
+      "code": "30",
+      "nom": "Gard",
+      "prix_moyen": 3127,
+      "prix_median": 2651,
+      "nb": 5298,
+      "population": 770940,
+      "ventes_100k_hab": 687
+    },
+    {
+      "code": "31",
+      "nom": "Haute-Garonne",
+      "prix_moyen": 3123,
+      "prix_median": 2863,
+      "nb": 7864,
+      "population": 1471468,
+      "ventes_100k_hab": 534
+    },
+    {
+      "code": "01",
+      "nom": "Ain",
+      "prix_moyen": 3102,
+      "prix_median": 2632,
+      "nb": 3464,
+      "population": 679344,
+      "ventes_100k_hab": 510
+    },
+    {
+      "code": "38",
+      "nom": "Isère",
+      "prix_moyen": 2998,
+      "prix_median": 2693,
+      "nb": 6601,
+      "population": 1298990,
+      "ventes_100k_hab": 508
+    },
+    {
+      "code": "66",
+      "nom": "Pyrénées-Orientales",
+      "prix_moyen": 2992,
+      "prix_median": 2645,
+      "nb": 5007,
+      "population": 496855,
+      "ventes_100k_hab": 1008
+    },
+    {
+      "code": "85",
+      "nom": "Vendée",
+      "prix_moyen": 2952,
+      "prix_median": 2500,
+      "nb": 5670,
+      "population": 713609,
+      "ventes_100k_hab": 795
+    },
+    {
+      "code": "04",
+      "nom": "Alpes-de-Haute-Provence",
+      "prix_moyen": 2891,
+      "prix_median": 2482,
+      "nb": 1111,
+      "population": 168054,
+      "ventes_100k_hab": 661
+    },
+    {
+      "code": "21",
+      "nom": "Côte-d'Or",
+      "prix_moyen": 2785,
+      "prix_median": 2482,
+      "nb": 2967,
+      "population": 540100,
+      "ventes_100k_hab": 549
+    },
+    {
+      "code": "59",
+      "nom": "Nord",
+      "prix_moyen": 2764,
+      "prix_median": 2246,
+      "nb": 14285,
+      "population": 2615635,
+      "ventes_100k_hab": 546
+    },
+    {
+      "code": "76",
+      "nom": "Seine-Maritime",
+      "prix_moyen": 2732,
+      "prix_median": 2213,
+      "nb": 8138,
+      "population": 1260964,
+      "ventes_100k_hab": 645
+    },
+    {
+      "code": "49",
+      "nom": "Maine-et-Loire",
+      "prix_moyen": 2728,
+      "prix_median": 2288,
+      "nb": 3837,
+      "population": 833776,
+      "ventes_100k_hab": 460
+    },
+    {
+      "code": "26",
+      "nom": "Drôme",
+      "prix_moyen": 2689,
+      "prix_median": 2393,
+      "nb": 3552,
+      "population": 524207,
+      "ventes_100k_hab": 678
+    },
+    {
+      "code": "07",
+      "nom": "Ardèche",
+      "prix_moyen": 2688,
+      "prix_median": 2213,
+      "nb": 2100,
+      "population": 334231,
+      "ventes_100k_hab": 628
+    },
+    {
+      "code": "37",
+      "nom": "Indre-et-Loire",
+      "prix_moyen": 2652,
+      "prix_median": 2383,
+      "nb": 3903,
+      "population": 619362,
+      "ventes_100k_hab": 630
+    },
+    {
+      "code": "22",
+      "nom": "Côtes-d'Armor",
+      "prix_moyen": 2582,
+      "prix_median": 2142,
+      "nb": 4665,
+      "population": 611859,
+      "ventes_100k_hab": 762
+    },
+    {
+      "code": "60",
+      "nom": "Oise",
+      "prix_moyen": 2582,
+      "prix_median": 2238,
+      "nb": 4587,
+      "population": 829899,
+      "ventes_100k_hab": 553
+    },
+    {
+      "code": "51",
+      "nom": "Marne",
+      "prix_moyen": 2581,
+      "prix_median": 2154,
+      "nb": 2804,
+      "population": 563076,
+      "ventes_100k_hab": 498
+    },
+    {
+      "code": "25",
+      "nom": "Doubs",
+      "prix_moyen": 2569,
+      "prix_median": 2183,
+      "nb": 2859,
+      "population": 547163,
+      "ventes_100k_hab": 523
+    },
+    {
+      "code": "54",
+      "nom": "Meurthe-et-Moselle",
+      "prix_moyen": 2563,
+      "prix_median": 2036,
+      "nb": 3811,
+      "population": 732236,
+      "ventes_100k_hab": 520
+    },
+    {
+      "code": "80",
+      "nom": "Somme",
+      "prix_moyen": 2550,
+      "prix_median": 1918,
+      "nb": 3354,
+      "population": 565413,
+      "ventes_100k_hab": 593
+    },
+    {
+      "code": "29",
+      "nom": "Finistère",
+      "prix_moyen": 2549,
+      "prix_median": 2206,
+      "nb": 5138,
+      "population": 933455,
+      "ventes_100k_hab": 550
+    },
+    {
+      "code": "11",
+      "nom": "Aude",
+      "prix_moyen": 2501,
+      "prix_median": 2115,
+      "nb": 3305,
+      "population": 379648,
+      "ventes_100k_hab": 871
+    },
+    {
+      "code": "63",
+      "nom": "Puy-de-Dôme",
+      "prix_moyen": 2497,
+      "prix_median": 2118,
+      "nb": 4164,
+      "population": 664453,
+      "ventes_100k_hab": 627
+    },
+    {
+      "code": "65",
+      "nom": "Hautes-Pyrénées",
+      "prix_moyen": 2391,
+      "prix_median": 1905,
+      "nb": 2095,
+      "population": 231349,
+      "ventes_100k_hab": 906
+    },
+    {
+      "code": "62",
+      "nom": "Pas-de-Calais",
+      "prix_moyen": 2383,
+      "prix_median": 1858,
+      "nb": 6611,
+      "population": 1457905,
+      "ventes_100k_hab": 453
+    },
+    {
+      "code": "27",
+      "nom": "Eure",
+      "prix_moyen": 2376,
+      "prix_median": 1991,
+      "nb": 4876,
+      "population": 602714,
+      "ventes_100k_hab": 809
+    },
+    {
+      "code": "50",
+      "nom": "Manche",
+      "prix_moyen": 2373,
+      "prix_median": 1955,
+      "nb": 3892,
+      "population": 497522,
+      "ventes_100k_hab": 782
+    },
+    {
+      "code": "46",
+      "nom": "Lot",
+      "prix_moyen": 2351,
+      "prix_median": 1844,
+      "nb": 1629,
+      "population": 176473,
+      "ventes_100k_hab": 923
+    },
+    {
+      "code": "42",
+      "nom": "Loire",
+      "prix_moyen": 2315,
+      "prix_median": 1845,
+      "nb": 4254,
+      "population": 774133,
+      "ventes_100k_hab": 550
+    },
+    {
+      "code": "45",
+      "nom": "Loiret",
+      "prix_moyen": 2308,
+      "prix_median": 1964,
+      "nb": 3477,
+      "population": 691268,
+      "ventes_100k_hab": 503
+    },
+    {
+      "code": "90",
+      "nom": "Territoire de Belfort",
+      "prix_moyen": 2298,
+      "prix_median": 1696,
+      "nb": 750,
+      "population": 140255,
+      "ventes_100k_hab": 535
+    },
+    {
+      "code": "28",
+      "nom": "Eure-et-Loir",
+      "prix_moyen": 2271,
+      "prix_median": 1946,
+      "nb": 2434,
+      "population": 433129,
+      "ventes_100k_hab": 562
+    },
+    {
+      "code": "82",
+      "nom": "Tarn-et-Garonne",
+      "prix_moyen": 2265,
+      "prix_median": 1937,
+      "nb": 1782,
+      "population": 265817,
+      "ventes_100k_hab": 670
+    },
+    {
+      "code": "24",
+      "nom": "Dordogne",
+      "prix_moyen": 2265,
+      "prix_median": 1808,
+      "nb": 2774,
+      "population": 417614,
+      "ventes_100k_hab": 664
+    },
+    {
+      "code": "53",
+      "nom": "Mayenne",
+      "prix_moyen": 2224,
+      "prix_median": 1697,
+      "nb": 1829,
+      "population": 305468,
+      "ventes_100k_hab": 599
+    },
+    {
+      "code": "39",
+      "nom": "Jura",
+      "prix_moyen": 2216,
+      "prix_median": 1778,
+      "nb": 1552,
+      "population": 257973,
+      "ventes_100k_hab": 602
+    },
+    {
+      "code": "12",
+      "nom": "Aveyron",
+      "prix_moyen": 2209,
+      "prix_median": 1855,
+      "nb": 1900,
+      "population": 279609,
+      "ventes_100k_hab": 680
+    },
+    {
+      "code": "48",
+      "nom": "Lozère",
+      "prix_moyen": 2197,
+      "prix_median": 1667,
+      "nb": 463,
+      "population": 76486,
+      "ventes_100k_hab": 605
+    },
+    {
+      "code": "88",
+      "nom": "Vosges",
+      "prix_moyen": 2187,
+      "prix_median": 1681,
+      "nb": 2327,
+      "population": 357248,
+      "ventes_100k_hab": 651
+    },
+    {
+      "code": "81",
+      "nom": "Tarn",
+      "prix_moyen": 2173,
+      "prix_median": 1890,
+      "nb": 1811,
+      "population": 397352,
+      "ventes_100k_hab": 456
+    },
+    {
+      "code": "87",
+      "nom": "Haute-Vienne",
+      "prix_moyen": 2136,
+      "prix_median": 1628,
+      "nb": 2464,
+      "population": 373167,
+      "ventes_100k_hab": 660
+    },
+    {
+      "code": "86",
+      "nom": "Vienne",
+      "prix_moyen": 2096,
+      "prix_median": 1705,
+      "nb": 2405,
+      "population": 438897,
+      "ventes_100k_hab": 548
+    },
+    {
+      "code": "10",
+      "nom": "Aube",
+      "prix_moyen": 2095,
+      "prix_median": 1633,
+      "nb": 1531,
+      "population": 310447,
+      "ventes_100k_hab": 493
+    },
+    {
+      "code": "71",
+      "nom": "Saône-et-Loire",
+      "prix_moyen": 2087,
+      "prix_median": 1663,
+      "nb": 3773,
+      "population": 550310,
+      "ventes_100k_hab": 686
+    },
+    {
+      "code": "19",
+      "nom": "Corrèze",
+      "prix_moyen": 2077,
+      "prix_median": 1654,
+      "nb": 1310,
+      "population": 240826,
+      "ventes_100k_hab": 544
+    },
+    {
+      "code": "43",
+      "nom": "Haute-Loire",
+      "prix_moyen": 2067,
+      "prix_median": 1713,
+      "nb": 1319,
+      "population": 228654,
+      "ventes_100k_hab": 577
+    },
+    {
+      "code": "32",
+      "nom": "Gers",
+      "prix_moyen": 2066,
+      "prix_median": 1759,
+      "nb": 1307,
+      "population": 192645,
+      "ventes_100k_hab": 678
+    },
+    {
+      "code": "41",
+      "nom": "Loir-et-Cher",
+      "prix_moyen": 2011,
+      "prix_median": 1675,
+      "nb": 1889,
+      "population": 328543,
+      "ventes_100k_hab": 575
+    },
+    {
+      "code": "47",
+      "nom": "Lot-et-Garonne",
+      "prix_moyen": 2004,
+      "prix_median": 1725,
+      "nb": 2604,
+      "population": 333602,
+      "ventes_100k_hab": 781
+    },
+    {
+      "code": "55",
+      "nom": "Meuse",
+      "prix_moyen": 1975,
+      "prix_median": 1304,
+      "nb": 919,
+      "population": 180290,
+      "ventes_100k_hab": 510
+    },
+    {
+      "code": "72",
+      "nom": "Sarthe",
+      "prix_moyen": 1963,
+      "prix_median": 1694,
+      "nb": 3222,
+      "population": 566733,
+      "ventes_100k_hab": 569
+    },
+    {
+      "code": "09",
+      "nom": "Ariège",
+      "prix_moyen": 1961,
+      "prix_median": 1719,
+      "nb": 753,
+      "population": 155722,
+      "ventes_100k_hab": 484
+    },
+    {
+      "code": "89",
+      "nom": "Yonne",
+      "prix_moyen": 1956,
+      "prix_median": 1547,
+      "nb": 1740,
+      "population": 332267,
+      "ventes_100k_hab": 524
+    },
+    {
+      "code": "16",
+      "nom": "Charente",
+      "prix_moyen": 1891,
+      "prix_median": 1560,
+      "nb": 2707,
+      "population": 352683,
+      "ventes_100k_hab": 768
+    },
+    {
+      "code": "61",
+      "nom": "Orne",
+      "prix_moyen": 1887,
+      "prix_median": 1523,
+      "nb": 2036,
+      "population": 275201,
+      "ventes_100k_hab": 740
+    },
+    {
+      "code": "03",
+      "nom": "Allier",
+      "prix_moyen": 1868,
+      "prix_median": 1468,
+      "nb": 2668,
+      "population": 333298,
+      "ventes_100k_hab": 800
+    },
+    {
+      "code": "18",
+      "nom": "Cher",
+      "prix_moyen": 1835,
+      "prix_median": 1387,
+      "nb": 2184,
+      "population": 298660,
+      "ventes_100k_hab": 731
+    },
+    {
+      "code": "70",
+      "nom": "Haute-Saône",
+      "prix_moyen": 1831,
+      "prix_median": 1417,
+      "nb": 1316,
+      "population": 233185,
+      "ventes_100k_hab": 564
+    },
+    {
+      "code": "79",
+      "nom": "Deux-Sèvres",
+      "prix_moyen": 1808,
+      "prix_median": 1511,
+      "nb": 2257,
+      "population": 375229,
+      "ventes_100k_hab": 601
+    },
+    {
+      "code": "15",
+      "nom": "Cantal",
+      "prix_moyen": 1802,
+      "prix_median": 1500,
+      "nb": 1021,
+      "population": 144196,
+      "ventes_100k_hab": 708
+    },
+    {
+      "code": "52",
+      "nom": "Haute-Marne",
+      "prix_moyen": 1779,
+      "prix_median": 1270,
+      "nb": 784,
+      "population": 168331,
+      "ventes_100k_hab": 466
+    },
+    {
+      "code": "08",
+      "nom": "Ardennes",
+      "prix_moyen": 1749,
+      "prix_median": 1442,
+      "nb": 1408,
+      "population": 265893,
+      "ventes_100k_hab": 530
+    },
+    {
+      "code": "36",
+      "nom": "Indre",
+      "prix_moyen": 1729,
+      "prix_median": 1244,
+      "nb": 1286,
+      "population": 216069,
+      "ventes_100k_hab": 595
+    },
+    {
+      "code": "02",
+      "nom": "Aisne",
+      "prix_moyen": 1705,
+      "prix_median": 1421,
+      "nb": 2769,
+      "population": 523342,
+      "ventes_100k_hab": 529
+    },
+    {
+      "code": "58",
+      "nom": "Nièvre",
+      "prix_moyen": 1645,
+      "prix_median": 1215,
+      "nb": 1580,
+      "population": 201417,
+      "ventes_100k_hab": 784
+    },
+    {
+      "code": "23",
+      "nom": "Creuse",
+      "prix_moyen": 1474,
+      "prix_median": 1117,
+      "nb": 939,
+      "population": 115527,
+      "ventes_100k_hab": 813
+    }
+  ],
+  "top_communes": [
+    {
+      "commune": "Paris 06",
+      "departement": "75",
+      "prix_m2_median": 12314,
+      "nb": 168
+    },
+    {
+      "commune": "Paris 07",
+      "departement": "75",
+      "prix_m2_median": 12066,
+      "nb": 212
+    },
+    {
+      "commune": "Paris 04",
+      "departement": "75",
+      "prix_m2_median": 11667,
+      "nb": 190
+    },
+    {
+      "commune": "Paris 08",
+      "departement": "75",
+      "prix_m2_median": 11595,
+      "nb": 221
+    },
+    {
+      "commune": "Paris 01",
+      "departement": "75",
+      "prix_m2_median": 11561,
+      "nb": 100
+    },
+    {
+      "commune": "Paris 03",
+      "departement": "75",
+      "prix_m2_median": 11544,
+      "nb": 266
+    },
+    {
+      "commune": "Paris 05",
+      "departement": "75",
+      "prix_m2_median": 11200,
+      "nb": 269
+    },
+    {
+      "commune": "Paris 02",
+      "departement": "75",
+      "prix_m2_median": 10725,
+      "nb": 146
+    },
+    {
+      "commune": "Paris 16",
+      "departement": "75",
+      "prix_m2_median": 10611,
+      "nb": 815
+    },
+    {
+      "commune": "Paris 09",
+      "departement": "75",
+      "prix_m2_median": 10430,
+      "nb": 413
+    },
+    {
+      "commune": "Matoury",
+      "departement": "973",
+      "prix_m2_median": 10204,
+      "nb": 314
+    },
+    {
+      "commune": "Neuilly-Sur-Seine",
+      "departement": "92",
+      "prix_m2_median": 10116,
+      "nb": 373
+    },
+    {
+      "commune": "Chamonix Mont Blanc",
+      "departement": "74",
+      "prix_m2_median": 10112,
+      "nb": 117
+    },
+    {
+      "commune": "Paris 17",
+      "departement": "75",
+      "prix_m2_median": 9990,
+      "nb": 929
+    },
+    {
+      "commune": "Paris 11",
+      "departement": "75",
+      "prix_m2_median": 9854,
+      "nb": 790
+    }
+  ],
+  "focus_bdr": {
+    "nb_transactions": 11997,
+    "prix_m2_median": 3754,
+    "prix_appart": 3500,
+    "prix_maison": 4253,
+    "rang_departement": 11,
+    "top_communes": [
+      {
+        "commune": "Cassis",
+        "prix_m2_median": 7917,
+        "nb": 53
+      },
+      {
+        "commune": "Simiane-Collongue",
+        "prix_m2_median": 6400,
+        "nb": 31
+      },
+      {
+        "commune": "Sausset-Les-Pins",
+        "prix_m2_median": 6398,
+        "nb": 61
+      },
+      {
+        "commune": "Carry-Le-Rouet",
+        "prix_m2_median": 6290,
+        "nb": 35
+      },
+      {
+        "commune": "Saint-Remy-De-Provence",
+        "prix_m2_median": 5920,
+        "nb": 73
+      },
+      {
+        "commune": "Ventabren",
+        "prix_m2_median": 5657,
+        "nb": 51
+      }
+    ]
+  },
+  "insights": [
+    "Sur 373 038 transactions (2025-01 → 2025-06)  le prix médian national s'établit à 2 667 €/m².",
+    "Paris est le département le plus cher (9 447 €/m² en moyenne)  contre 1 474 €/m² pour Creuse.",
+    "Au m²  une maison se vend en médiane 36 % moins cher qu'un appartement (2 226 € contre 3 462 €).",
+    "6.5 % des biens dépassent 8 000 €/m² (segment « Luxe »), tandis que la majorité reste dans le segment « Éco » (< 4 000 €/m²).",
+    "En croisant avec la population (INSEE), Hautes-Alpes est le marché le plus dynamique : 1129 ventes pour 100 000 habitants."
+  ]
+}

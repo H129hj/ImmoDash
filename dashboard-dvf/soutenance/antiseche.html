@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><style>
+@page{size:A4;margin:10mm;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Segoe UI",Arial,sans-serif;font-size:10.2px;line-height:1.4;color:#1a2438;}
+h1{font-size:17px;color:#0e1525;border-bottom:3px solid #ff7a1a;padding-bottom:4px;margin-bottom:8px;}
+h1 span{color:#ff7a1a;}
+h2{font-size:11.5px;color:#fff;background:#1e293b;padding:3px 8px;border-radius:4px;margin:9px 0 5px;}
+.grid{display:flex;gap:10px;}.col{flex:1;}
+.box{border:1px solid #d8dde6;border-radius:6px;padding:7px 9px;margin-bottom:7px;background:#fafbfc;}
+.cmd{background:#0e1525;color:#7ee0b8;font-family:monospace;font-size:9.5px;padding:6px 9px;border-radius:5px;margin:3px 0;}
+.cmd b{color:#ff9f4a;}
+table{width:100%;border-collapse:collapse;}
+td{padding:2px 4px;vertical-align:top;}
+.kpi td:first-child{color:#64748b;}.kpi td:last-child{font-weight:700;text-align:right;}
+.q{font-weight:700;color:#0e1525;}
+ul{margin-left:14px;}li{margin:2px 0;}
+.accent{color:#ff7a1a;font-weight:700;}
+.warn{background:#fff4e6;border-left:3px solid #ff7a1a;padding:6px 9px;border-radius:4px;margin-bottom:7px;}
+.tag{display:inline-block;background:#ede9fe;color:#5b21b6;border-radius:3px;padding:0 5px;font-size:9px;font-weight:700;}
+</style></head><body>
+
+<h1>🏠 Antisèche soutenance — Dashboard <span>DVF 2025</span></h1>
+
+<div class="warn"><b>⚠️ Le prof pénalise « l'IA sans comprendre ».</b> Ne récite pas. Comprends, et
+<b>montre le code</b> (ouvre <span class="tag">src/nettoyage.py</span> ou <span class="tag">app_streamlit.py</span>). Parle lentement, regarde le jury.</div>
+
+<div class="grid">
+<div class="col">
+
+<h2>🚀 À lancer AVANT de passer</h2>
+<div class="cmd">cd dashboard-dvf<br><b>python3 main.py</b>      # génère la base (~10s)<br><b>streamlit run app_streamlit.py</b></div>
+<div class="box" style="margin-top:4px">Onglet déjà ouvert sur le dashboard. Teste 1 fois : un <b>filtre département (13)</b>, la <b>recherche d'une commune</b>, l'onglet <b>Géographie</b>.</div>
+
+<h2>🔢 Chiffres à connaître</h2>
+<div class="box"><table class="kpi">
+<tr><td>Transactions (brut → propre)</td><td>404 868 → 373 038</td></tr>
+<tr><td>Prix médian national</td><td>2 667 €/m²</td></tr>
+<tr><td>Prix moyen national</td><td>3 387 €/m²</td></tr>
+<tr><td>Appartement / Maison (médian)</td><td>3 462 / 2 226 €/m²</td></tr>
+<tr><td>Département le + cher</td><td>Paris — 9 447 €/m²</td></tr>
+<tr><td>Le + abordable</td><td>Creuse — 1 474 €/m²</td></tr>
+<tr><td>Segments Éco / Std / Luxe</td><td>72 % / 20 % / 7 %</td></tr>
+<tr><td>Bouches-du-Rhône</td><td>≈ 11ᵉ rang national</td></tr>
+</table></div>
+
+<h2>🎬 Structure (souple : 10 → 30 min)</h2>
+<div class="box">
+<b>1.</b> Contexte : 400k ventes DVF → « lisible en 10 s ? » <span style="color:#64748b">(1 min)</span><br>
+<b>2.</b> Données + le pb des données « sales » <span style="color:#64748b">(1 min)</span><br>
+<b>3.</b> Pipeline ETL : collecte→SQLite→nettoyage→fusion→features→dashboard <span style="color:#64748b">(2-3 min)</span><br>
+<b>4.</b> <span class="accent">DÉMO live Streamlit</span> : filtres, recherche, carte <span style="color:#64748b">(3-6 min)</span><br>
+<b>5.</b> Insights : Paris, segments, maison vs appart, focus 13 <span style="color:#64748b">(2-4 min)</span><br>
+<b>6.</b> Choix &amp; limites + conclusion <span style="color:#64748b">(1-2 min)</span><br>
+<span style="color:#64748b;font-size:9px">Pour tenir 20-30 min : montre + de filtres en direct et ouvre le code (modules src/).</span>
+</div>
+
+</div>
+<div class="col">
+
+<h2>❓ Réponses express</h2>
+<div class="box">
+<p class="q">Médiane vs moyenne ?</p>La médiane résiste aux valeurs extrêmes (châteaux, erreurs). Moyenne 3 387 vs médiane 2 667 → l'écart prouve qu'il y a des extrêmes.
+<p class="q">prix_m2 ?</p><span style="font-family:monospace">valeur_fonciere / surface_reelle</span>, borné 500–15 000 €/m² (anti-aberrations).
+<p class="q">Pourquoi supprimer ~8 % des lignes ?</p>Pas de prix/surface = pas de prix au m². Doublons + montants impossibles (négatifs, milliards). Je l'assume et l'affiche.
+<p class="q">SQLite, pourquoi ?</p>Centraliser au lieu de fichiers éparpillés. 3 tables : raw_dvf, raw_insee, dvf_clean. Pandas lit via <span style="font-family:monospace">read_sql_query</span>.
+<p class="q">Fusion : quelle clé ?</p><span class="accent">code_departement</span> (fiable). Les noms de communes DVF ne sont pas normalisés (« MARSEILLE 1ER ») → clé mauvaise = fusion ratée. Jointure LEFT = garder toutes les ventes. Ajout INSEE = population → ventes/100k hab.
+<p class="q">Pourquoi Streamlit ?</p>Framework Python → appli web interactive sans JS. Filtres + carte en direct. C'est l'outil vu en cours.
+<p class="q">As-tu utilisé l'IA ?</p>Oui, autorisé pour le code — mais je comprends et je peux réexpliquer chaque partie. <i>(propose d'ouvrir un fichier)</i>
+<p class="q">Améliorations ?</p>Données INSEE plus fines (revenus), filtres encore + poussés, plusieurs années pour une tendance.
+</div>
+
+<h2>🧠 Réflexes</h2>
+<div class="box">
+<ul>
+<li>Si question sur le code → <b>ouvre le fichier</b> et montre la fonction.</li>
+<li>Carte = <span class="accent">st.map</span> : points par département, couleur = prix, taille = volume.</li>
+<li>« Données sales » assumées : c'est <b>80 % du travail data</b> (nettoyage).</li>
+<li>Le dashboard se recalcule <b>en direct</b> sur 373 038 lignes (pas figé).</li>
+<li>Respire. Tu connais ton projet mieux que personne dans la salle.</li>
+</ul>
+</div>
+
+</div>
+</div>
+</body></html>
