@@ -117,7 +117,7 @@ def vue(slice_, nation, mois, deps, communes, dist, noms, pop):
                       "prix": num(cm[med]), "nb": num(cm[cnt])})
     crows.sort(key=lambda x: x["prix"] or 0, reverse=True)
     return {"kpis": kpis, "departements": drows, "evolution": evo,
-            "segments": segments_from_dist(dist, DIST[slice_]), "communes": crows[:20]}
+            "segments": segments_from_dist(dist, DIST[slice_]), "communes": crows[:400]}
 
 
 def main():

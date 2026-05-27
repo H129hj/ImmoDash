@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   ResponsiveContainer, ComposedChart, Area, Bar, XAxis, YAxis, Tooltip, CartesianGrid,
@@ -105,8 +105,22 @@ export function Geography({ c }: { c: Ctx }) {
   const topDep = useMemo(
     () => [...c.view.departements].sort((a, b) => (b.prix_median || 0) - (a.prix_median || 0)).slice(0, 14),
     [c.view]);
+  const [ds, setDs] = useState<{ k: string; d: number }>({ k: "prix_median", d: -1 });
+  const [dq, setDq] = useState("");
+  const deprows = useMemo(() => {
+    const q = dq.trim().toLowerCase();
+    return [...c.view.departements]
+      .filter((d: any) => !q || d.nom.toLowerCase().includes(q) || String(d.code).includes(q))
+      .sort((a, b) => { const va = a[ds.k], vb = b[ds.k]; return typeof va === "string" ? ds.d * va.localeCompare(vb) : ds.d * ((va ?? 0) - (vb ?? 0)); });
+  }, [c.view, ds, dq]);
+  const dArrow = (k: string) => (ds.k === k ? (ds.d < 0 ? " ↓" : " ↑") : "");
+  const DTh = ({ k, label, num }: any) => (
+    <th onClick={() => setDs((s) => ({ k, d: s.k === k ? -s.d : (k === "nom" ? 1 : -1) }))}
+      className={`cursor-pointer select-none px-4 py-2.5 font-medium hover:text-amber ${num ? "text-right" : ""}`}>{label}{dArrow(k)}</th>
+  );
 
   return (
+    <div className="space-y-5">
     <div className="grid gap-5 lg:grid-cols-12">
       <motion.section {...fade(0)} className="card p-5 lg:col-span-7">
         <SectionTitle kicker="Carte" title="Prix médian au m² par département" />
@@ -157,6 +171,44 @@ export function Geography({ c }: { c: Ctx }) {
           </ResponsiveContainer>
         </motion.section>
       </div>
+    </div>
+
+      <motion.section {...fade(3)} className="card p-5">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <SectionTitle kicker="Donnée complète" title={`Les ${c.view.departements.length} départements`} />
+          <div className="flex items-center gap-2 rounded-lg border border-line bg-ink px-3 py-2">
+            <Search size={15} className="text-muted" />
+            <input value={dq} onChange={(e) => setDq(e.target.value)} placeholder="Département…"
+              className="w-40 bg-transparent text-sm text-fg outline-none placeholder:text-muted" />
+          </div>
+        </div>
+        <div className="max-h-[380px] overflow-auto rounded-lg border border-line">
+          <table className="w-full text-sm">
+            <thead className="sticky top-0 bg-surface2 text-left text-muted">
+              <tr>
+                <DTh k="nom" label="Département" />
+                <DTh k="code" label="Code" />
+                <DTh k="prix_median" label="€/m² médian" num />
+                <DTh k="nb" label="Transactions" num />
+                <DTh k="population" label="Population" num />
+                <DTh k="ventes_100k" label="Ventes/100k hab." num />
+              </tr>
+            </thead>
+            <tbody>
+              {deprows.map((d: any) => (
+                <tr key={d.code} className="cursor-pointer border-t border-line/60 hover:bg-surface2/60" onClick={() => c.setSelDep(d.code)}>
+                  <td className="px-4 py-2 text-fg">{d.nom}</td>
+                  <td className="px-4 py-2 font-mono text-muted">{d.code}</td>
+                  <td className="px-4 py-2 text-right font-mono tnum text-amber">{eur(d.prix_median)}</td>
+                  <td className="px-4 py-2 text-right font-mono tnum text-muted">{nf(d.nb)}</td>
+                  <td className="px-4 py-2 text-right font-mono tnum text-muted">{nf(d.population)}</td>
+                  <td className="px-4 py-2 text-right font-mono tnum text-muted">{nf(d.ventes_100k)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </motion.section>
     </div>
   );
 }
@@ -235,35 +287,84 @@ export function Typology({ c }: { c: Ctx }) {
 
 /* ════════════════ COMMUNES ════════════════ */
 export function Communes({ c }: { c: Ctx }) {
-  const top = c.view.communes.slice(0, 12);
+  const all: any[] = c.view.communes;
+  const deps = useMemo(() => [...new Set(all.map((x) => x.dep))].sort(), [all]);
+  const prices = all.map((x) => x.prix);
+  const pmin = Math.min(...prices), pmax = Math.max(...prices);
+  const [dep, setDep] = useState("");
+  const [minP, setMinP] = useState(pmin);
+  const [sort, setSort] = useState<{ k: string; d: number }>({ k: "prix", d: -1 });
+
+  const rows = useMemo(() => {
+    const q = c.q.trim().toLowerCase();
+    let r = all.filter((x) =>
+      (!q || x.commune.toLowerCase().includes(q)) && (!dep || x.dep === dep) && x.prix >= minP);
+    r = [...r].sort((a, b) => {
+      const va = a[sort.k], vb = b[sort.k];
+      return typeof va === "string" ? sort.d * va.localeCompare(vb) : sort.d * (va - vb);
+    });
+    return r;
+  }, [all, c.q, dep, minP, sort]);
+
+  const setSortKey = (k: string) => setSort((s) => ({ k, d: s.k === k ? -s.d : (k === "commune" ? 1 : -1) }));
+  const arrow = (k: string) => (sort.k === k ? (sort.d < 0 ? " ↓" : " ↑") : "");
+  const Th = ({ k, label, num }: any) => (
+    <th onClick={() => setSortKey(k)} className={`cursor-pointer select-none px-4 py-2.5 font-medium hover:text-amber ${num ? "text-right" : ""}`}>{label}{arrow(k)}</th>
+  );
+  const reset = () => { setDep(""); setMinP(pmin); c.setQ(""); setSort({ k: "prix", d: -1 }); };
+
   return (
     <div className="space-y-5">
-      <motion.section {...fade(0)} className="card p-5">
-        <SectionTitle kicker="Podium" title="Communes les plus chères (top 10)" />
-        <Leaderboard rows={top.slice(0, 10)} />
+      {/* Barre de filtres */}
+      <motion.section {...fade(0)} className="card p-4">
+        <div className="flex flex-wrap items-end gap-4">
+          <div>
+            <label className="mb-1 block text-[10px] uppercase tracking-wide text-muted">Recherche</label>
+            <div className="flex items-center gap-2 rounded-lg border border-line bg-ink px-3 py-2">
+              <Search size={15} className="text-muted" />
+              <input value={c.q} onChange={(e) => c.setQ(e.target.value)} placeholder="Commune…" aria-label="Rechercher une commune"
+                className="w-40 bg-transparent text-sm text-fg outline-none placeholder:text-muted" />
+            </div>
+          </div>
+          <div>
+            <label className="mb-1 block text-[10px] uppercase tracking-wide text-muted">Département</label>
+            <select value={dep} onChange={(e) => setDep(e.target.value)}
+              className="rounded-lg border border-line bg-ink px-3 py-2 text-sm text-fg outline-none">
+              <option value="">Tous ({deps.length})</option>
+              {deps.map((d) => <option key={d} value={d}>{d}</option>)}
+            </select>
+          </div>
+          <div className="min-w-[180px] flex-1">
+            <label className="mb-1 block text-[10px] uppercase tracking-wide text-muted">Prix min : {eur(minP)}/m²</label>
+            <input type="range" min={pmin} max={pmax} step={100} value={minP} onChange={(e) => setMinP(+e.target.value)}
+              className="w-full accent-[var(--color-amber)]" aria-label="Prix minimum" />
+          </div>
+          <button onClick={reset} className="rounded-lg border border-line px-3 py-2 text-sm text-muted hover:text-amber">Réinitialiser</button>
+          <div className="font-mono text-sm text-fg">{rows.length} commune{rows.length > 1 ? "s" : ""}</div>
+        </div>
       </motion.section>
 
       <motion.section {...fade(1)} className="card p-5">
-        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-          <SectionTitle kicker="Détail" title="Toutes les communes" />
-          <div className="flex items-center gap-2 rounded-lg border border-line bg-ink px-3 py-2">
-            <Search size={15} className="text-muted" />
-            <input value={c.q} onChange={(e) => c.setQ(e.target.value)} placeholder="Rechercher une commune…"
-              aria-label="Rechercher une commune" className="w-52 bg-transparent text-sm text-fg outline-none placeholder:text-muted" />
-          </div>
-        </div>
-        <div className="max-h-[340px] overflow-auto rounded-lg border border-line">
+        <SectionTitle kicker="Podium" title="Top 10 (sélection filtrée)" />
+        {rows.length ? <Leaderboard rows={[...rows].sort((a, b) => b.prix - a.prix).slice(0, 10)} />
+          : <p className="text-sm text-muted">Aucune commune ne correspond aux filtres.</p>}
+      </motion.section>
+
+      <motion.section {...fade(2)} className="card p-5">
+        <SectionTitle kicker="Détail complet" title={`${rows.length} communes`} />
+        <div className="max-h-[420px] overflow-auto rounded-lg border border-line">
           <table className="w-full text-sm">
             <thead className="sticky top-0 bg-surface2 text-left text-muted">
               <tr>
-                <th className="px-4 py-2.5 font-medium">#</th><th className="px-4 py-2.5 font-medium">Commune</th>
-                <th className="px-4 py-2.5 font-medium">Dép.</th>
-                <th className="px-4 py-2.5 text-right font-medium">€/m² médian</th>
-                <th className="px-4 py-2.5 text-right font-medium">Ventes</th>
+                <th className="px-4 py-2.5 font-medium">#</th>
+                <Th k="commune" label="Commune" />
+                <Th k="dep" label="Dép." />
+                <Th k="prix" label="€/m² médian" num />
+                <Th k="nb" label="Ventes" num />
               </tr>
             </thead>
             <tbody>
-              {c.communes.map((cm: any, i: number) => (
+              {rows.map((cm, i) => (
                 <tr key={cm.commune + cm.dep} className="border-t border-line/60 hover:bg-surface2/60">
                   <td className="px-4 py-2 font-mono text-muted">{i + 1}</td>
                   <td className="px-4 py-2 text-fg">{cm.commune}</td>
@@ -272,9 +373,7 @@ export function Communes({ c }: { c: Ctx }) {
                   <td className="px-4 py-2 text-right font-mono tnum text-muted">{nf(cm.nb)}</td>
                 </tr>
               ))}
-              {c.communes.length === 0 && (
-                <tr><td colSpan={5} className="px-4 py-8 text-center text-muted">Aucune commune pour « {c.q} ».</td></tr>
-              )}
+              {rows.length === 0 && <tr><td colSpan={5} className="px-4 py-8 text-center text-muted">Aucun résultat.</td></tr>}
             </tbody>
           </table>
         </div>
