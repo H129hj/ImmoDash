@@ -194,7 +194,7 @@ export function Overview({ c }: { c: Ctx }) {
     <div className="space-y-5">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
         <Kpi i={0} label="Prix médian" value={k.prix_median} unit="€/m²" sub="national" icon={TrendingUp} color={v("amber")} spark={sparkPrix} />
-        <Kpi i={1} label="Évolution 5 ans" value={evo} unit="%" sub="médian, depuis 2021" icon={evo >= 0 ? ArrowUpRight : ArrowDownRight} color={v("gold")}
+        <Kpi i={1} label="Évolution 3 ans" value={evo} unit="%" sub="médian, depuis 2023" icon={evo >= 0 ? ArrowUpRight : ArrowDownRight} color={v("gold")}
           fmt={(n: number) => `${n >= 0 ? "+" : ""}${n.toFixed(1)}`} />
         <Kpi i={2} label="Transactions" value={k.nb} sub={c.data.meta.periode} icon={MapPin} color={v("teal")} spark={sparkVol} />
         <Kpi i={3} label="Appartement" value={k.prix_appart} unit="€/m²" sub="médian" icon={Building2} color={v("teal")} />
