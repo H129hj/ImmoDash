@@ -43,7 +43,7 @@ export default function Sidebar({
 
       {/* Navigation */}
       <nav className="flex flex-1 flex-col gap-1">
-        {NAV.map((n) => {
+        {NAV.filter((n) => n.id !== "game" || theme === "mario").map((n) => {
           const active = page === n.id;
           return (
             <button key={n.id} onClick={() => setPage(n.id)}

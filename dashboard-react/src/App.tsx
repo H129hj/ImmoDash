@@ -36,7 +36,9 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("dvf-theme", theme);
-  }, [theme]);
+    // le Jeu n'existe qu'en thème Mario : on quitte la page si on en sort
+    if (theme !== "mario" && page === "game") setPage("overview");
+  }, [theme, page]);
 
   const mario = theme === "mario";
   const changeTheme = (t: Theme) => { t === "mario" ? audio.powerup() : audio.coin(); setTheme(t); };
