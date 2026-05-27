@@ -7,9 +7,10 @@ import {
 import {
   Search, MapPin, TrendingUp, Building2, Home, X, Sparkles, Database, Filter,
   GitMerge, LineChart, Layers, ArrowRight, ArrowUpRight, ArrowDownRight,
+  Rocket, Cpu, Palette, Target, Map as MapIcon, Joystick,
 } from "lucide-react";
 import FranceMap from "./FranceMap";
-import { v, nf, eur, Kpi, Stat, SectionTitle } from "./lib";
+import { v, nf, eur, Kpi, Stat, SectionTitle, Sparkline } from "./lib";
 
 const PRICE_COLORS = ["#2f6f72", "#5fb3a1", "#d9b46a", "#f0883e", "#e76a82"];
 const priceColor = (p: number) =>
@@ -27,6 +28,158 @@ const fade = (i = 0) => ({
   initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 },
   transition: { duration: 0.4, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] as any },
 });
+
+/* ════════════════ PRÉSENTATION (case-study portfolio) ════════════════ */
+const FLOW = [
+  { icon: Database, t: "Collecte", d: "API DVF + INSEE" },
+  { icon: Filter, t: "Nettoyage", d: "Pandas · SQLite" },
+  { icon: GitMerge, t: "Fusion", d: "DVF × INSEE" },
+  { icon: Layers, t: "Agrégats", d: "médianes · segments" },
+  { icon: LineChart, t: "Dashboard", d: "React · d3 · Recharts" },
+];
+
+export function Presentation({ c }: { c: Ctx }) {
+  const k = c.view.kpis, meta = c.data.meta;
+  const deps = c.view.departements;
+  const top = deps[0], last = deps[deps.length - 1];
+  const sparkPrix = c.view.evolution.map((e: any) => e.prix);
+  const evo = k.evolution_pct;
+  const stats = [
+    { v: nf(meta.nb_total), s: "transactions" },
+    { v: "93", s: "départements" },
+    { v: eur(k.prix_median), s: "médian /m²" },
+    { v: `${evo >= 0 ? "+" : ""}${evo} %`, s: "sur 3 ans" },
+  ];
+  return (
+    <div className="mx-auto max-w-5xl space-y-6">
+      {/* HERO */}
+      <motion.section {...fade(0)} className="card relative overflow-hidden p-8">
+        <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full opacity-20 blur-3xl" style={{ background: v("amber") }} />
+        <div className="relative">
+          <div className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.25em] text-amber">
+            <Rocket size={14} /> Projet Yboost IA &amp; Data · Ynov
+          </div>
+          <h1 className="font-display text-5xl font-bold leading-none text-fg">
+            Immo<span className="text-amber">Dash</span>
+          </h1>
+          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">
+            Un tableau de bord qui transforme <b className="text-fg">{nf(meta.nb_total)} ventes immobilières</b> brutes
+            (données publiques <b className="text-fg">DVF</b>, {meta.periode}) en une lecture claire du marché français —
+            <b className="text-fg"> compréhensible en quelques secondes</b>.
+          </p>
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {stats.map((s) => (
+              <div key={s.s} className="rounded-xl border border-line bg-ink/40 p-3">
+                <div className="font-mono text-xl font-bold text-fg">{s.v}</div>
+                <div className="text-[11px] text-muted">{s.s}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* LE DÉFI / L'OBJECTIF */}
+      <div className="grid gap-5 md:grid-cols-2">
+        <motion.section {...fade(1)} className="card p-6">
+          <SectionTitle kicker="Le défi" title="Des millions de lignes illisibles" />
+          <p className="text-sm leading-relaxed text-muted">
+            Chaque vente immobilière en France est publiée en open data. Des millions de transactions
+            brutes : impossible d'en tirer du sens à l'œil nu. <b className="text-fg">Comment rendre cette
+            masse compréhensible ?</b>
+          </p>
+        </motion.section>
+        <motion.section {...fade(2)} className="card p-6">
+          <SectionTitle kicker="L'objectif" title="Donner de la valeur à la donnée" />
+          <p className="text-sm leading-relaxed text-muted">
+            Répondre en 10 secondes à : <b className="text-fg">où</b> achète-t-on, à <b className="text-fg">quel
+            prix</b>, <b className="text-fg">quel bien</b>, et <b className="text-fg">comment ça évolue</b> —
+            via KPIs, carte, classements et un parcours interactif.
+          </p>
+        </motion.section>
+      </div>
+
+      {/* LES DONNÉES */}
+      <motion.section {...fade(1)} className="card p-6">
+        <SectionTitle kicker="Les données" title="DVF — Demandes de Valeurs Foncières" />
+        <p className="mb-4 text-sm leading-relaxed text-muted">
+          Le registre public de <b className="text-fg">toutes les mutations immobilières</b> en France
+          (source DGFiP / data.gouv.fr). Chaque ligne = une vente : prix, surface, type de bien, localisation, date.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {["valeur_fonciere", "surface_reelle", "type_bien", "commune", "code_departement", "date_mutation"].map((x) => (
+            <span key={x} className="rounded-lg border border-line bg-surface2 px-2.5 py-1 font-mono text-xs text-fg">{x}</span>
+          ))}
+        </div>
+        <p className="mt-3 text-xs text-muted">
+          → indicateur clé dérivé : <b className="text-fg">prix au m²</b> = valeur_fonciere / surface_reelle ·
+          fusionné avec la <b className="text-fg">population INSEE</b> pour le dynamisme (ventes/100k hab.).
+        </p>
+      </motion.section>
+
+      {/* LA DÉMARCHE */}
+      <motion.section {...fade(2)} className="card p-6">
+        <SectionTitle kicker="La démarche" title="Un pipeline de la donnée à la dataviz" />
+        <div className="flex flex-wrap items-stretch gap-2">
+          {FLOW.map((s, i) => (
+            <div key={s.t} className="flex items-center gap-2">
+              <div className="w-[120px] rounded-xl border border-line bg-ink/40 p-3 text-center">
+                <s.icon size={17} className="mx-auto" style={{ color: v("amber") }} />
+                <div className="mt-1.5 text-sm font-semibold text-fg">{s.t}</div>
+                <div className="text-[10px] text-muted">{s.d}</div>
+              </div>
+              {i < FLOW.length - 1 && <ArrowRight size={15} className="shrink-0 text-amber" />}
+            </div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* INSIGHTS CLÉS */}
+      <div>
+        <SectionTitle kicker="Ce que révèle la donnée" title="3 insights clés" />
+        <div className="grid gap-5 md:grid-cols-3">
+          <motion.div {...fade(0)} className="card p-5">
+            <div className="text-sm text-muted">Une France à deux vitesses</div>
+            <div className="mt-1 font-display text-2xl font-bold text-amber">{(top.prix_median / last.prix_median).toFixed(1)}×</div>
+            <p className="mt-1 text-xs text-muted">{top.nom} ({eur(top.prix_median)}) vs {last.nom} ({eur(last.prix_median)}).</p>
+          </motion.div>
+          <motion.div {...fade(1)} className="card p-5">
+            <div className="text-sm text-muted">Tendance sur 3 ans</div>
+            <div className="mt-1 font-display text-2xl font-bold" style={{ color: evo >= 0 ? v("green") : v("rose") }}>
+              {evo >= 0 ? "+" : ""}{evo} %
+            </div>
+            <div className="mt-1"><Sparkline data={sparkPrix} color={v("amber")} /></div>
+          </motion.div>
+          <motion.div {...fade(2)} className="card p-5">
+            <div className="text-sm text-muted">Appartement vs Maison</div>
+            <div className="mt-1 font-display text-2xl font-bold text-fg">{eur(k.prix_appart)}</div>
+            <p className="mt-1 text-xs text-muted">au m² (appart.) · maison {eur(k.prix_maison)} — densité urbaine.</p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* STACK + FONCTIONNALITÉS */}
+      <div className="grid gap-5 md:grid-cols-2">
+        <motion.section {...fade(1)} className="card p-6">
+          <SectionTitle kicker="Stack technique" title="Outils" />
+          <div className="mb-2 flex items-center gap-2 text-xs text-muted"><Cpu size={14} className="text-amber" /> Back / data</div>
+          <div className="mb-3 flex flex-wrap gap-2">{["Python", "Pandas", "SQLite", "API DVF", "INSEE"].map((t) => <Chip key={t}>{t}</Chip>)}</div>
+          <div className="mb-2 flex items-center gap-2 text-xs text-muted"><Palette size={14} className="text-amber" /> Front / dataviz</div>
+          <div className="flex flex-wrap gap-2">{["React", "TypeScript", "Tailwind", "Recharts", "d3-geo", "Framer Motion"].map((t) => <Chip key={t}>{t}</Chip>)}</div>
+        </motion.section>
+        <motion.section {...fade(2)} className="card p-6">
+          <SectionTitle kicker="Fonctionnalités" title="Ce que fait ImmoDash" />
+          <ul className="space-y-2 text-sm text-muted">
+            <li className="flex gap-2"><MapIcon size={16} className="mt-0.5 shrink-0 text-amber" /> Carte choroplèthe interactive des 93 départements.</li>
+            <li className="flex gap-2"><Filter size={16} className="mt-0.5 shrink-0 text-amber" /> Filtres en direct : type de bien, département, prix, recherche, tri.</li>
+            <li className="flex gap-2"><Target size={16} className="mt-0.5 shrink-0 text-amber" /> KPIs, classements, segmentation, tendances mensuelles.</li>
+            <li className="flex gap-2"><Joystick size={16} className="mt-0.5 shrink-0 text-amber" /> Mini-jeu : on court sur la courbe des prix (la donnée devient le terrain).</li>
+            <li className="flex gap-2"><Sparkles size={16} className="mt-0.5 shrink-0 text-amber" /> 3 thèmes (sombre / clair / Mario).</li>
+          </ul>
+        </motion.section>
+      </div>
+    </div>
+  );
+}
 
 /* ════════════════ VUE D'ENSEMBLE ════════════════ */
 export function Overview({ c }: { c: Ctx }) {

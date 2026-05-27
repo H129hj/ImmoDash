@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import {
-  LayoutDashboard, Map, Layers, Building2, Workflow, Moon, Sun, Gamepad2, Joystick,
+  LayoutDashboard, Map, Layers, Building2, Workflow, Moon, Sun, Gamepad2, Joystick, Rocket,
 } from "lucide-react";
 import { MarioGlyph } from "./mario";
 
-export type PageId = "overview" | "geo" | "typo" | "communes" | "method" | "game";
+export type PageId = "presentation" | "overview" | "geo" | "typo" | "communes" | "method" | "game";
 type Theme = "dark" | "light" | "mario";
 
 const NAV: { id: PageId; label: string; icon: any; hint: string }[] = [
+  { id: "presentation", label: "Le Projet", icon: Rocket, hint: "Présentation & data" },
   { id: "overview", label: "Vue d'ensemble", icon: LayoutDashboard, hint: "KPIs & tendances" },
   { id: "geo", label: "Géographie", icon: Map, hint: "Carte & départements" },
   { id: "typo", label: "Typologie", icon: Layers, hint: "Types & segments" },

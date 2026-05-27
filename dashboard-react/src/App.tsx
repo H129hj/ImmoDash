@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 import Sidebar, { type PageId } from "./Sidebar";
-import { Overview, Geography, Typology, Communes, Method, type Ctx } from "./pages";
+import { Presentation, Overview, Geography, Typology, Communes, Method, type Ctx } from "./pages";
 import { type Slice } from "./lib";
 import { useAudio, MarioFx } from "./mario";
 import DataGame from "./DataGame";
@@ -13,6 +13,7 @@ type Theme = "dark" | "light" | "mario";
 const SLICES: Slice[] = ["Tous", "Appartement", "Maison"];
 
 const PAGES: Record<PageId, { title: string; subtitle: string; Comp: (p: { c: Ctx }) => any }> = {
+  presentation: { title: "Le Projet", subtitle: "Présentation, données & démarche", Comp: Presentation },
   overview: { title: "Vue d'ensemble", subtitle: "Les chiffres clés du marché", Comp: Overview },
   geo: { title: "Géographie", subtitle: "Le prix de l'immobilier, département par département", Comp: Geography },
   typo: { title: "Typologie & segments", subtitle: "Quels biens, à quels prix", Comp: Typology },
@@ -23,7 +24,7 @@ const PAGES: Record<PageId, { title: string; subtitle: string; Comp: (p: { c: Ct
 
 export default function App() {
   const [data, setData] = useState<any>(null);
-  const [page, setPage] = useState<PageId>("overview");
+  const [page, setPage] = useState<PageId>("presentation");
   const [slice, setSlice] = useState<Slice>("Tous");
   const [selDep, setSelDep] = useState<string | null>(null);
   const [q, setQ] = useState("");
