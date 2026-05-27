@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script>
 tailwind.config = { theme: { extend: {
   colors: { ink:"#0a0d15", surface:"#121826", surface2:"#19202f", line:"#252d3f", fg:"#ece8df", muted:"#8a93a6", amber:"#f0883e", amberSoft:"#f6b87f", teal:"#5fb3c4", green:"#57c79a" },
@@ -120,6 +121,41 @@ tailwind.config = { theme: { extend: {
     </div>
   </section>
 
+  <!-- DATA LIVE (vrais graphiques) -->
+  <section id="graphes" class="py-16">
+    <div class="reveal mb-6">
+      <div class="font-mono text-[11px] uppercase tracking-[.22em] text-amber">La data en direct</div>
+      <h2 class="mt-1 font-display text-3xl font-semibold">Les chiffres qui parlent</h2>
+      <p class="mt-2 max-w-2xl text-muted">Graphiques générés en direct à partir des agrégats DVF — pas des images.</p>
+    </div>
+    <div class="grid gap-5 lg:grid-cols-3">
+      <div class="reveal rounded-2xl border border-line bg-surface/40 p-5 lg:col-span-2">
+        <h3 class="mb-1 font-semibold">Évolution du prix médian au m² <span class="text-muted">· 36 mois</span></h3>
+        <p class="mb-3 text-xs text-muted">Courbe = prix médian (€/m²) · barres = volume de ventes mensuel.</p>
+        <div class="h-64"><canvas id="cEvo"></canvas></div>
+      </div>
+      <div class="reveal rounded-2xl border border-line bg-surface/40 p-5">
+        <h3 class="mb-1 font-semibold">Segmentation du marché</h3>
+        <p class="mb-3 text-xs text-muted">Éco &lt; 4 000 · Standard 4–8k · Luxe &gt; 8 000 €/m².</p>
+        <div class="h-64"><canvas id="cSeg"></canvas></div>
+      </div>
+      <div class="reveal rounded-2xl border border-line bg-surface/40 p-5 lg:col-span-2">
+        <h3 class="mb-1 font-semibold">Top 12 des départements les plus chers</h3>
+        <p class="mb-3 text-xs text-muted">Prix médian au m² (métropole).</p>
+        <div class="h-72"><canvas id="cDep"></canvas></div>
+      </div>
+      <div class="reveal rounded-2xl border border-line bg-surface/40 p-5">
+        <h3 class="mb-3 font-semibold">Comment lire la donnée</h3>
+        <ul class="space-y-3 text-sm text-muted">
+          <li><b class="text-fg">Prix au m²</b> = valeur de vente ÷ surface. Permet de comparer un studio et une villa.</li>
+          <li><b class="text-fg">Médiane</b> (et pas moyenne) : la valeur du milieu, <b class="text-fg">insensible aux extrêmes</b> (un château ne la déforme pas).</li>
+          <li><b class="text-fg">Segments</b> : 3 classes de prix pour lire la structure du marché d'un coup d'œil.</li>
+          <li><b class="text-fg">Ventes / 100k hab.</b> : volume rapporté à la population (INSEE) = dynamisme réel.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- PIPELINE -->
   <section id="pipeline" class="py-16">
     <div class="reveal mb-6">
@@ -201,6 +237,38 @@ tailwind.config = { theme: { extend: {
 <script>
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+  // ── Graphiques live (Chart.js) depuis data.json ──
+  const AMBER="#f0883e", TEAL="#5fb3c4", GREEN="#57c79a", MUTED="#8a93a6", LINE="#252d3f";
+  Chart.defaults.color = MUTED; Chart.defaults.font.family = "Geist, sans-serif";
+  const fr = (n)=>Math.round(n).toLocaleString("fr-FR");
+  fetch("./data.json").then(r=>r.json()).then(d=>{
+    const v = d.Tous;
+    // Évolution (line + bar)
+    new Chart(document.getElementById("cEvo"), {
+      data:{ labels: v.evolution.map(e=>e.mois), datasets:[
+        { type:"line", label:"€/m² médian", data:v.evolution.map(e=>e.prix), yAxisID:"y", borderColor:AMBER, backgroundColor:"rgba(240,136,62,.12)", borderWidth:2.5, tension:.35, fill:true, pointRadius:0 },
+        { type:"bar", label:"Ventes", data:v.evolution.map(e=>e.volume), yAxisID:"y1", backgroundColor:"rgba(95,179,196,.30)", borderRadius:2 } ]},
+      options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:"index",intersect:false},
+        scales:{ x:{grid:{display:false},ticks:{maxTicksLimit:8}}, y:{grid:{color:LINE},ticks:{callback:x=>x/1000+"k €"}}, y1:{position:"right",grid:{display:false},display:false} },
+        plugins:{ legend:{labels:{usePointStyle:true}}, tooltip:{callbacks:{label:c=>c.dataset.type==="bar"?` ${fr(c.raw)} ventes`:` ${fr(c.raw)} €/m²`}} } }
+    });
+    // Segments (doughnut)
+    new Chart(document.getElementById("cSeg"), {
+      type:"doughnut",
+      data:{ labels:v.segments.map(s=>`${s.segment} · ${s.part}%`), datasets:[{ data:v.segments.map(s=>s.nb), backgroundColor:[GREEN,TEAL,AMBER], borderColor:"#0d1019", borderWidth:3 }] },
+      options:{ responsive:true, maintainAspectRatio:false, cutout:"58%", plugins:{ legend:{position:"bottom",labels:{usePointStyle:true,boxWidth:8}}, tooltip:{callbacks:{label:c=>` ${fr(c.raw)} biens`}} } }
+    });
+    // Top départements (bar horizontal)
+    const top = [...v.departements].sort((a,b)=>b.prix_median-a.prix_median).slice(0,12);
+    new Chart(document.getElementById("cDep"), {
+      type:"bar",
+      data:{ labels:top.map(x=>x.nom), datasets:[{ label:"€/m² médian", data:top.map(x=>x.prix_median), backgroundColor:AMBER, borderRadius:4 }] },
+      options:{ indexAxis:"y", responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${fr(c.raw)} €/m²`}} },
+        scales:{ x:{grid:{color:LINE},ticks:{callback:x=>x/1000+"k"}}, y:{grid:{display:false},ticks:{font:{size:11}}} } }
+    });
+  });
 </script>
 </body>
 </html>
