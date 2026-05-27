@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ImmoDash — Étude de cas · Dashboard immobilier DVF</title>
+<meta name="description" content="ImmoDash : dashboard d'analyse du marché immobilier français à partir des données publiques DVF. Étude de cas data + dataviz." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: { ink:"#0a0d15", surface:"#121826", surface2:"#19202f", line:"#252d3f", fg:"#ece8df", muted:"#8a93a6", amber:"#f0883e", amberSoft:"#f6b87f", teal:"#5fb3c4", green:"#57c79a" },
+  fontFamily: { display:["Fraunces","serif"], sans:["Geist","sans-serif"], mono:["Geist Mono","monospace"] }
+}}};
+</script>
+<style>
+  html{scroll-behavior:smooth;}
+  body{background:
+    radial-gradient(1100px 520px at 88% -8%, rgba(240,136,62,.14), transparent 60%),
+    radial-gradient(900px 600px at -5% 4%, rgba(95,179,196,.10), transparent 55%),
+    #0a0d15;}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+  .reveal.in{opacity:1;transform:none;}
+  .frame{border:1px solid #252d3f;border-radius:14px;overflow:hidden;background:#0d1019;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);}
+  .frame .bar{display:flex;gap:6px;padding:9px 12px;border-bottom:1px solid #252d3f;background:#11161f;}
+  .frame .bar i{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .shimmer{background:linear-gradient(92deg,#f0883e,#f6b87f,#f0883e);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 5s linear infinite;}
+  @keyframes sh{to{background-position:300% 0;}}
+</style>
+</head>
+<body class="font-sans text-fg antialiased">
+<div class="relative z-10">
+
+<!-- NAV -->
+<header class="sticky top-0 z-50 border-b border-line bg-ink/75 backdrop-blur-xl">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
+    <a href="#top" class="flex items-center gap-2 font-display text-lg font-semibold">🏠 Immo<span class="text-amber">Dash</span></a>
+    <div class="hidden items-center gap-6 text-sm text-muted md:flex">
+      <a href="#projet" class="hover:text-fg">Le projet</a>
+      <a href="#data" class="hover:text-fg">Les données</a>
+      <a href="#pipeline" class="hover:text-fg">Pipeline</a>
+      <a href="#insights" class="hover:text-fg">Insights</a>
+      <a href="#apercu" class="hover:text-fg">Aperçu</a>
+    </div>
+    <a href="https://github.com/H129hj/ImmoDash" target="_blank" class="rounded-lg border border-line px-3 py-1.5 text-sm text-fg hover:border-amber hover:text-amber">GitHub ↗</a>
+  </nav>
+</header>
+
+<main id="top" class="mx-auto max-w-6xl px-6">
+
+  <!-- HERO -->
+  <section class="grid items-center gap-10 py-16 md:grid-cols-2 md:py-24">
+    <div class="reveal">
+      <div class="mb-3 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[.25em] text-amber">
+        <span class="h-2 w-2 rounded-full bg-amber"></span> Étude de cas · Data & Dataviz
+      </div>
+      <h1 class="font-display text-5xl font-bold leading-[1.05] md:text-6xl">
+        Lire le <span class="shimmer">marché immobilier</span> français en 10 secondes.
+      </h1>
+      <p class="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+        <b class="text-fg">ImmoDash</b> transforme <b class="text-fg">2,79 millions</b> de ventes immobilières
+        publiques (données <b class="text-fg">DVF</b>, 2023–2025, toute la France) en un tableau de bord clair,
+        interactif et raconté.
+      </p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a href="http://localhost:4174" target="_blank" class="rounded-xl bg-amber px-5 py-3 font-semibold text-[#1a1206] transition hover:brightness-110">▶ Voir le dashboard</a>
+        <a href="https://github.com/H129hj/ImmoDash" target="_blank" class="rounded-xl border border-line px-5 py-3 font-semibold text-fg transition hover:border-amber">Code source ↗</a>
+      </div>
+    </div>
+    <div class="reveal frame">
+      <div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
+      <img src="./img/overview.png" alt="Vue d'ensemble ImmoDash" class="w-full" loading="lazy">
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="reveal grid grid-cols-2 gap-4 border-y border-line py-8 md:grid-cols-4">
+    <div><div class="font-mono text-3xl font-bold text-amber">2,79 M</div><div class="text-sm text-muted">transactions analysées</div></div>
+    <div><div class="font-mono text-3xl font-bold text-fg">2 576 €</div><div class="text-sm text-muted">prix médian / m²</div></div>
+    <div><div class="font-mono text-3xl font-bold text-fg">93</div><div class="text-sm text-muted">départements</div></div>
+    <div><div class="font-mono text-3xl font-bold text-teal">36 mois</div><div class="text-sm text-muted">d'évolution (2023–2025)</div></div>
+  </section>
+
+  <!-- PROJET -->
+  <section id="projet" class="grid gap-6 py-16 md:grid-cols-2">
+    <div class="reveal">
+      <div class="font-mono text-[11px] uppercase tracking-[.22em] text-amber">Le défi</div>
+      <h2 class="mt-1 font-display text-3xl font-semibold">Des millions de lignes illisibles</h2>
+      <p class="mt-3 leading-relaxed text-muted">Chaque vente immobilière en France est publiée en open data.
+        Brutes, ces millions de transactions n'ont aucun sens pour un humain. L'enjeu : <b class="text-fg">en extraire
+        une lecture immédiate</b>.</p>
+    </div>
+    <div class="reveal">
+      <div class="font-mono text-[11px] uppercase tracking-[.22em] text-amber">L'objectif</div>
+      <h2 class="mt-1 font-display text-3xl font-semibold">Donner de la valeur à la donnée</h2>
+      <p class="mt-3 leading-relaxed text-muted">Répondre en quelques secondes à : <b class="text-fg">où</b> achète-t-on,
+        à <b class="text-fg">quel prix</b>, <b class="text-fg">quel type de bien</b>, et <b class="text-fg">comment le marché
+        évolue</b> — par la carte, les classements, et un parcours interactif.</p>
+    </div>
+  </section>
+
+  <!-- DONNÉES -->
+  <section id="data" class="reveal rounded-2xl border border-line bg-surface/40 p-8 md:p-10">
+    <div class="font-mono text-[11px] uppercase tracking-[.22em] text-amber">Les données</div>
+    <h2 class="mt-1 font-display text-3xl font-semibold">DVF — Demandes de Valeurs Foncières</h2>
+    <p class="mt-3 max-w-3xl leading-relaxed text-muted">Le registre public de <b class="text-fg">toutes les mutations
+      immobilières</b> en France (DGFiP / data.gouv.fr). Une ligne = une vente. On en dérive l'indicateur clé — le
+      <b class="text-fg">prix au m²</b> — et on le croise avec la <b class="text-fg">population INSEE</b>.</p>
+    <div class="mt-5 flex flex-wrap gap-2">
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">valeur_fonciere</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">surface_reelle</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">type_bien</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">commune</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">code_departement</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">date_mutation</span>
+    </div>
+  </section>
+
+  <!-- PIPELINE -->
+  <section id="pipeline" class="py-16">
+    <div class="reveal mb-6">
+      <div class="font-mono text-[11px] uppercase tracking-[.22em] text-amber">La démarche</div>
+      <h2 class="mt-1 font-display text-3xl font-semibold">Un pipeline, de la donnée brute à la dataviz</h2>
+    </div>
+    <div class="reveal flex flex-wrap items-stretch gap-3">
+      <div class="flex-1 min-w-[150px] rounded-xl border border-line bg-surface/40 p-4 text-center"><div class="font-mono text-xs text-teal">01</div><div class="mt-1 font-semibold">Collecte</div><div class="text-xs text-muted">API DVF + INSEE</div></div>
+      <div class="flex-1 min-w-[150px] rounded-xl border border-line bg-surface/40 p-4 text-center"><div class="font-mono text-xs text-amber">02</div><div class="mt-1 font-semibold">Nettoyage</div><div class="text-xs text-muted">Pandas · SQLite</div></div>
+      <div class="flex-1 min-w-[150px] rounded-xl border border-line bg-surface/40 p-4 text-center"><div class="font-mono text-xs text-amber">03</div><div class="mt-1 font-semibold">Fusion</div><div class="text-xs text-muted">DVF × INSEE</div></div>
+      <div class="flex-1 min-w-[150px] rounded-xl border border-line bg-surface/40 p-4 text-center"><div class="font-mono text-xs text-amber">04</div><div class="mt-1 font-semibold">Agrégats</div><div class="text-xs text-muted">médianes · segments</div></div>
+      <div class="flex-1 min-w-[150px] rounded-xl border border-line bg-surface/40 p-4 text-center"><div class="font-mono text-xs text-teal">05</div><div class="mt-1 font-semibold">Dashboard</div><div class="text-xs text-muted">React · d3 · Recharts</div></div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section id="insights" class="py-8">
+    <div class="reveal mb-6">
+      <div class="font-mono text-[11px] uppercase tracking-[.22em] text-amber">Ce que révèle la donnée</div>
+      <h2 class="mt-1 font-display text-3xl font-semibold">3 insights clés</h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-3">
+      <div class="reveal rounded-2xl border border-line bg-surface/40 p-6">
+        <div class="font-display text-4xl font-bold text-amber">≈ 7×</div>
+        <p class="mt-2 text-sm text-muted">Une France à deux vitesses : <b class="text-fg">Paris ~10 250 €/m²</b> contre
+          ~1 500 €/m² dans les départements les plus abordables.</p>
+      </div>
+      <div class="reveal rounded-2xl border border-line bg-surface/40 p-6">
+        <div class="font-display text-4xl font-bold text-teal">−1,9 %</div>
+        <p class="mt-2 text-sm text-muted">Sur 3 ans, le prix médian <b class="text-fg">recule</b> : un marché qui se
+          refroidit (hausse des taux).</p>
+      </div>
+      <div class="reveal rounded-2xl border border-line bg-surface/40 p-6">
+        <div class="font-display text-4xl font-bold text-fg">72 %</div>
+        <p class="mt-2 text-sm text-muted">des biens sont « Éco » (&lt; 4 000 €/m²). Le luxe (&gt; 8 000) ne pèse que
+          <b class="text-fg">~5 %</b>, concentré à Paris et sur la Côte d'Azur.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APERÇU -->
+  <section id="apercu" class="py-16">
+    <div class="reveal mb-6">
+      <div class="font-mono text-[11px] uppercase tracking-[.22em] text-amber">Aperçu</div>
+      <h2 class="mt-1 font-display text-3xl font-semibold">Le dashboard en images</h2>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2">
+      <figure class="reveal frame"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><img src="./img/geo.png" class="w-full" loading="lazy" alt="Carte"><figcaption class="border-t border-line px-4 py-2 text-sm text-muted">Carte choroplèthe interactive des départements</figcaption></figure>
+      <figure class="reveal frame"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><img src="./img/communes.png" class="w-full" loading="lazy" alt="Communes"><figcaption class="border-t border-line px-4 py-2 text-sm text-muted">Filtres en direct + tableau complet (recherche, tri)</figcaption></figure>
+      <figure class="reveal frame"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><img src="./img/light.png" class="w-full" loading="lazy" alt="Mode clair"><figcaption class="border-t border-line px-4 py-2 text-sm text-muted">Mode clair — design épuré & accessible</figcaption></figure>
+      <figure class="reveal frame"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><img src="./img/game.png" class="w-full" loading="lazy" alt="Le jeu"><figcaption class="border-t border-line px-4 py-2 text-sm text-muted">Mini-jeu : courir sur la courbe des prix (la donnée devient le terrain)</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section class="reveal border-t border-line py-12">
+    <div class="font-mono text-[11px] uppercase tracking-[.22em] text-amber">Stack technique</div>
+    <div class="mt-4 flex flex-wrap gap-2.5">
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">Python</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">Pandas</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">SQLite</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">React</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">TypeScript</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">Tailwind</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">Recharts</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">d3-geo</span>
+      <span class="rounded-lg border border-line bg-surface2 px-3 py-1.5 font-mono text-sm">Framer Motion</span>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-line py-10 text-center text-sm text-muted">
+  <p class="font-display text-lg text-fg">Immo<span class="text-amber">Dash</span></p>
+  <p class="mt-1">Projet Yboost IA &amp; Data · Ynov — Données DVF (data.gouv.fr) &amp; INSEE</p>
+  <p class="mt-3"><a href="https://github.com/H129hj/ImmoDash" target="_blank" class="text-amber hover:underline">github.com/H129hj/ImmoDash</a></p>
+</footer>
+</div>
+
+<script>
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+</script>
+</body>
+</html>
